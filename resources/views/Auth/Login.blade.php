@@ -50,52 +50,72 @@
 @endsection
 
 @push('scripts')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-
     <script>
-        $('#loginForm').submit(function (e) {
-            e.preventDefault();
+        $(document).ready(function() {
+            $('#loginForm').submit(function (e) {
+                e.preventDefault();
+                const $btn = $('#loginBtn');
+                const $form = $(this);
+                
+                $btn.prop('disabled', true).text('Logging in...');
 
-            const $btn = $('#loginBtn');
-            $btn.prop('disabled', true).text('Logging in...');
-
-            $.ajax({
-                url: "{{ route('loginpost') }}",
-                method: "POST",
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    email: $('input[name=email]').val(),
-                    password: $('input[name=password]').val(),
-                    remember: $('#remember').is(':checked') ? 'on' : ''
-                },
-                success: function (res) {
-                    console.log(res);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: res.message || 'Login successful',
-                        confirmButtonColor: '#3085d6'
-                    }).then(() => {
-                        window.location.href = res.redirect;
-                    });
-                },
-                error: function (xhr) {
-                    $btn.prop('disabled', false).text('Login');
-
-                    if (xhr.status === 422) {
-                        const errors = xhr.responseJSON.errors;
-                        $.each(errors, function (key, value) {
-                            toastar.error(value[0]);
-                        });
-                    } else if (xhr.status === 403) {
-                        toastar.error(xhr.responseJSON.message);
-                    } else {
-                        toastar.error('An unexpected error occurred.');
+                $.ajax({
+                    url: $form.attr('action') || "{{ route('loginpost') }}",
+                    method: "POST",
+                    data: $form.serialize(),
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.redirect) {
+                            window.location.href = response.redirect;
+                        }
+                    },
+                    error: function (xhr) {
+                        $btn.prop('disabled', false).text('Login');
+                        let response = xhr.responseJSON || {};
+                        
+                        if (xhr.status === 422 && response.errors) {
+                            // Validation errors
+                            $.each(response.errors, function (key, messages) {
+                                if (Array.isArray(messages)) {
+                                    messages.forEach(function(message) {
+                                        showToast('error', message);
+                                    });
+                                } else {
+                                    showToast('error', messages);
+                                }
+                            });
+                        } else if (response.message) {
+                            // Other error with message
+                            showToast('error', response.message);
+                        } else {
+                            // Generic error
+                            showToast('error', 'An unexpected error occurred. Please try again.');
+                        }
                     }
-                }
+                });
             });
+            
+            // Helper function to show toast messages
+            function showToast(type, message) {
+                if (typeof toastr === 'undefined') {
+                    alert(type.toUpperCase() + ': ' + message);
+                    return;
+                }
+                
+                switch(type) {
+                    case 'success':
+                        toastr.success(message);
+                        break;
+                    case 'error':
+                        toastr.error(message);
+                        break;
+                    case 'warning':
+                        toastr.warning(message);
+                        break;
+                    default:
+                        toastr.info(message);
+                }
+            }
         });
     </script>
 @endpush

@@ -12,48 +12,53 @@ class AuthController extends Controller
 {
 
     public function index(){
+        if (Auth::check()) {
+            $role = auth()->user()->getRoleNames()->first(); // returns role name like 'admin'
+            return redirect()->route($role . '.dashboard');
+        }
         return view('Auth.Login');
     }
 
     public function login(Request $request)
     {
         try {
+            // Validate input
             $request->validate([
-                'email' => 'required|email',
+                'email'    => 'required|email',
                 'password' => 'required|string|min:6',
             ]);
 
-            $remember = $request->has('remember');
+            $remember    = $request->filled('remember'); // support "remember me"
             $credentials = $request->only('email', 'password');
 
+            // Attempt login
             if (!Auth::attempt($credentials, $remember)) {
                 return response()->json(['message' => 'Invalid email or password.'], 422);
             }
 
             $user = Auth::user();
 
-            // Optional: check if user is active
+            // Optional: check user active status
             if (method_exists($user, 'isActive') && !$user->isActive()) {
                 Auth::logout();
-                return response()->json(['message' => 'Your account is inactive. Contact administrator.'], 403);
+                return response()->json([
+                    'message' => 'Your account is inactive. Contact administrator.'
+                ], 403);
             }
 
-            if ($user->hasRole('superAdmin')) {
-                $redirect = route('superadmin.dashboard');
-            } elseif ($user->hasRole('admin')) {
-                $redirect = route('admin.dashboard');
-            } elseif ($user->hasRole('hr')) {
-                $redirect = route('hr.dashboard');
-            } elseif ($user->hasRole('teamLead')) {
-                $redirect = route('teamlead.dashboard');
-            } elseif ($user->hasRole('finance')) {
-                $redirect = route('finance.dashboard');
-            } elseif ($user->hasRole('employee')) {
-                $redirect = route('employee.dashboard');
-            } else {
-                $redirect = route('login');
-            }
+            // Role-based redirect logic
+            $roleRedirectMap = [
+                'superAdmin' => route('superAdmin.dashboard'),
+                'admin'      => route('admin.dashboard'),
+                'hr'         => route('hr.dashboard'),
+                'teamLead'   => route('teamlead.dashboard'),
+                'finance'    => route('finance.dashboard'),
+                'employee'   => route('employee.dashboard'),
+            ];
 
+            $userRole = $user->getRoleNames()->first(); // Assumes single-role per user
+
+            $redirect = $roleRedirectMap[$userRole] ?? route('login');
 
             return response()->json([
                 'status'   => 'success',
@@ -63,8 +68,12 @@ class AuthController extends Controller
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         } catch (\Throwable $e) {
-            Log::error('Login error: ' . $e->getMessage());
-            return response()->json(['message' => 'A system error occurred. Please try again.'], 500);
+            Log::error('Login error: ' . $e->getMessage(), [
+                'stack' => $e->getTraceAsString()
+            ]);
+            return response()->json([
+                'message' => 'A system error occurred. Please try again later.'
+            ], 500);
         }
     }
 

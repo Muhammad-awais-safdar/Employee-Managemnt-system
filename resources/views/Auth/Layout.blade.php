@@ -25,16 +25,34 @@
 
     <!-- Tabler Icon CSS -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/tabler-icons/tabler-icons.min.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <!-- Custom Toastr CSS -->
+    <style>
+        /* Fix toastr visibility */
+        #toast-container > div {
+            opacity: 1;
+            -ms-filter: none;
+            filter: none;
+        }
+        .toast {
+            background-color: #2a3042;
+            color: #fff;
+        }
+        .toast-success {
+            background-color: #51a351 !important;
+        }
+        .toast-error {
+            background-color: #bd362f !important;
+        }
+        .toast-info {
+            background-color: #2f96b4 !important;
+        }
+        .toast-warning {
+            background-color: #f89406 !important;
+        }
+    </style>
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" id="app-style">
-    <script>
-        toastr.options = {
-            "closeButton": true,
-            "progressBar": true,
-            "timeOut": "5000"
-        };
-    </script>
 
 
 </head>
@@ -66,9 +84,29 @@
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js'></script>
+    <script>
+        // Ensure toastr is properly initialized
+        if (typeof toastr !== 'undefined') {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                timeOut: 5000,
+                positionClass: 'toast-top-right',
+                showMethod: 'fadeIn',
+                hideMethod: 'fadeOut',
+                closeMethod: 'fadeOut',
+                preventDuplicates: true
+            };
+            
+            // Test toast - uncomment to verify toastr is working
+            // toastr.success('Toast is working!');
+        } else {
+            console.error('Toastr not loaded properly');
+        }
+    </script>
     @stack('scripts')
 
 </body>
 
 </html>
-x
