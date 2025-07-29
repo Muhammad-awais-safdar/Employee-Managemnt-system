@@ -90,14 +90,27 @@
                       <ul>
                           @if (Auth::user()->hasRole('superAdmin'))
                               <li>
-                              <a href={{ route('superAdmin.company.index') }}>
-                                  <i class="ti ti-building-community"></i><span>Companies</span>
-                              </a>
-                          </li>
+                                  <a href={{ route('superAdmin.company.index') }}>
+                                      <i class="ti ti-building-community"></i><span>Companies</span>
+                                  </a>
+                              </li>
                           @endif
                           <li>
                               <a href={{ asset('employees.html') }}>
                                   <i class="ti ti-users-group"></i><span>Employee</span>
+                              </a>
+                          </li>
+                          <li>
+                              @php
+                                  $role = auth()->check() ? Auth::user()->getRoleNames()->first() : null;
+                                //   dd($role);
+                                  $dashboardRoute =
+                                      $role && Route::has($role . '.users.index')
+                                          ? route($role . '.users.index')
+                                          : route('login');
+                              @endphp
+                              <a href="{{ $dashboardRoute }}">
+                                  <i class="ti ti-users-group"></i><span>Users</span>
                               </a>
                           </li>
                           <li>

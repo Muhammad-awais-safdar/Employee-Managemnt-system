@@ -9,7 +9,7 @@
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb breadcrumb-divide p-0 mb-0">
                                            @php
-                                                $role = auth()->check() ? auth()->user()->getRoleNames()->first() : null;
+                                                $role = auth()->check() ? Auth::user()->getRoleNames()->first() : null;
                                                 $dashboardRoute = $role && Route::has($role . '.dashboard') ? route($role . '.dashboard') : route('login');
                                             @endphp
                                             <li class="breadcrumb-item d-flex align-items-center"><a href={{ $dashboardRoute }}>Home</a></li>
@@ -47,13 +47,13 @@
                                                     <i class="ti ti-building text-white fs-3"></i>
                                                 </div>
                                                 <h6 class="fs-14 fw-semibold mb-0">My Company</h6>
-                                                @if(auth()->user()->ownedCompany)
-                                                    <small class="text-muted">{{ auth()->user()->ownedCompany->company_name }}</small>
+                                                @if(Auth::user()->ownedCompany)
+                                                    <small class="text-muted">{{ Auth::user()->ownedCompany->company_name }}</small>
                                                 @else
                                                     <small class="text-muted">No company assigned</small>
                                                 @endif
                                             </div>
-                                            @if(auth()->user()->ownedCompany)
+                                            @if(Auth::user()->ownedCompany)
                                                 <a href="{{ route('admin.company.edit') }}" class="btn btn-sm btn-outline-primary">
                                                     <i class="ti ti-edit"></i>
                                                 </a>

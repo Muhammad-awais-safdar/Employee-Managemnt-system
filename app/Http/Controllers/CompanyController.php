@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Company;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -25,10 +28,8 @@ class CompanyController extends Controller
     public function create()
     {
         // Get all users with admin role who don't already have a company
-        $adminUsers = \App\Models\User::whereHas('roles', function($query) {
-            $query->where('name', 'admin');
-        })->whereDoesntHave('ownedCompany')->get(['id', 'name', 'email']);
-        
+        $adminUsers = User::role('Admin')->whereDoesntHave('ownedCompany')->get(['id', 'name', 'email']);
+        // return $adminUsers;
         return view('EmployeeManagemntsystem.SuperAdmin.Company.create', compact('adminUsers'));
     }
 
@@ -66,12 +67,7 @@ class CompanyController extends Controller
         }
 
         try {
-            // Verify the selected user has admin role
-            $adminUser = \App\Models\User::where('id', $validated['admin_user_id'])
-                ->whereHas('roles', function($query) {
-                    $query->where('name', 'admin');
-                })
-                ->firstOrFail();
+            $adminUser = User::role('Admin')->where('id', $validated['admin_user_id'])->firstOrFail();
 
             // Handle logo upload with company name
             if ($request->hasFile('logo')) {
@@ -84,7 +80,7 @@ class CompanyController extends Controller
 
             // Set the admin user as the company owner
             $validated['user_id'] = $adminUser->id;
-            unset($validated['admin_user_id']); // Remove from data as it's not a column
+            unset($validated['admin_user_id']); 
 
             $company = Company::create($validated);
 
@@ -106,6 +102,7 @@ class CompanyController extends Controller
             }
             
             if ($request->ajax()) {
+                Log::error('Error creating company: ' . $e->getMessage());
                 return response()->json([
                     'success' => false,
                     'message' => 'Error creating company: ' . $e->getMessage()
@@ -135,7 +132,7 @@ class CompanyController extends Controller
         $company = Company::findOrFail($id);
         
         // Get all users with admin role who don't have a company, plus the current company's admin
-        $adminUsers = \App\Models\User::whereHas('roles', function($query) {
+        $adminUsers = User::whereHas('roles', function($query) {
             $query->where('name', 'admin');
         })->where(function($query) use ($company) {
             $query->whereDoesntHave('ownedCompany')
@@ -205,7 +202,7 @@ class CompanyController extends Controller
 
             // Update admin user if provided
             if (isset($validated['admin_user_id'])) {
-                $adminUser = \App\Models\User::where('id', $validated['admin_user_id'])
+                $adminUser = User::where('id', $validated['admin_user_id'])
                     ->whereHas('roles', function($query) {
                         $query->where('name', 'admin');
                     })
@@ -371,7 +368,7 @@ class CompanyController extends Controller
      */
     public function editOwn()
     {
-        $user = auth()->user();
+        $user = Auth::user();
         
         // Check if user has admin role
         if (!$user->hasRole('admin')) {
@@ -397,7 +394,7 @@ class CompanyController extends Controller
      */
     public function updateOwn(Request $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
         
         // Check if user has admin role
         if (!$user->hasRole('admin')) {

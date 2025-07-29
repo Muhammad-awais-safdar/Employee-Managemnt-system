@@ -14,16 +14,28 @@ class RolePermissionSeeder extends Seeder
     {
         // STEP 1: Define permissions
         $permissions = [
+            // User Management
+            'create users',
+            'view users',
+            'edit users',
+            'delete users',
+            
             // Super Admin
             'manage companies',
             'manage plans',
             'view billing',
             'global config',
+            'create superAdmins',
+            'create admins',
 
             // Admin
             'manage employees',
             'manage departments',
             'view company data',
+            'create hr',
+            'create teamLead',
+            'create finance',
+            'create employee',
 
             // HR
             'onboard employee',
@@ -31,11 +43,14 @@ class RolePermissionSeeder extends Seeder
             'manage documents',
             'manage attendance',
             'manage leave',
+            'create teamLead from hr',
+            'create employee from hr',
 
             // Team Lead
             'assign tasks',
             'track tasks',
             'give feedback',
+            'manage team members',
 
             // Finance
             'manage payroll',
@@ -56,34 +71,58 @@ class RolePermissionSeeder extends Seeder
         // STEP 2: Create roles and assign permissions
         $roles = [
             'superAdmin' => [
+                'create users',
+                'view users',
+                'edit users',
+                'delete users',
                 'manage companies',
                 'manage plans',
                 'view billing',
                 'global config',
+                'create superAdmins',
+                'create admins',
             ],
-            'admin' => [
+            'Admin' => [
+                'create users',
+                'view users',
+                'edit users',
+                'delete users',
                 'manage employees',
                 'manage departments',
                 'view company data',
+                'create hr',
+                'create teamLead',
+                'create finance',
+                'create employee',
             ],
-            'hr' => [
+            'HR' => [
+                'create users',
+                'view users',
+                'edit users',
+                'delete users',
                 'onboard employee',
                 'offboard employee',
                 'manage documents',
                 'manage attendance',
                 'manage leave',
+                'create teamLead from hr',
+                'create employee from hr',
             ],
-            'teamLead' => [
+            'TeamLead' => [
+                'view users',
+                'edit users',
+                'delete users',
                 'assign tasks',
                 'track tasks',
                 'give feedback',
+                'manage team members',
             ],
-            'finance' => [
+            'Finance' => [
                 'manage payroll',
                 'deduct salary',
                 'release salary',
             ],
-            'employee' => [
+            'Employee' => [
                 'mark attendance',
                 'view tasks',
                 'apply leave',
@@ -99,11 +138,11 @@ class RolePermissionSeeder extends Seeder
         // STEP 3: Create one user per role and assign role
         $users = [
             ['name' => 'Super Admin', 'email' => 'superadmin@gmail.com', 'role' => 'superAdmin'],
-            ['name' => 'Company Admin', 'email' => 'admin@gmail.com', 'role' => 'admin'],
-            ['name' => 'HR User', 'email' => 'hr@gmail.com', 'role' => 'hr'],
-            ['name' => 'Team Lead', 'email' => 'teamlead@gmail.com', 'role' => 'teamLead'],
-            ['name' => 'Finance User', 'email' => 'finance@gmail.com', 'role' => 'finance'],
-            ['name' => 'Employee User', 'email' => 'employee@gmail.com', 'role' => 'employee'],
+            ['name' => 'Company Admin', 'email' => 'admin@gmail.com', 'role' => 'Admin'],
+            ['name' => 'HR User', 'email' => 'hr@gmail.com', 'role' => 'HR'],
+            ['name' => 'Team Lead', 'email' => 'teamlead@gmail.com', 'role' => 'TeamLead'],
+            ['name' => 'Finance User', 'email' => 'finance@gmail.com', 'role' => 'Finance'],
+            ['name' => 'Employee User', 'email' => 'employee@gmail.com', 'role' => 'Employee'],
         ];
 
         foreach ($users as $userData) {

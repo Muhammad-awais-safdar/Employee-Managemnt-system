@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'company_id',
+        'team_lead_id',
     ];
 
     /**
@@ -56,5 +57,15 @@ class User extends Authenticatable
     public function ownedCompany()
     {
         return $this->hasOne(Company::class);
+    }
+
+    public function teamLead()
+    {
+        return $this->belongsTo(User::class, 'team_lead_id');
+    }
+
+    public function teamMembers()
+    {
+        return $this->hasMany(User::class, 'team_lead_id');
     }
 }

@@ -5,7 +5,7 @@
         <div class="col-lg-10 mx-auto">
             <div>
                 <h6 class="mb-3 fs-14">
-                    @if(auth()->user()->hasRole('superAdmin'))
+                    @if(Auth::user()->hasRole('superAdmin'))
                         <a href="{{ route('superAdmin.company.index') }}" class="text-decoration-none">
                             <i class="ti ti-arrow-left me-1"></i>Back to Companies
                         </a>
@@ -22,7 +22,7 @@
                 <div class="card rounded-0">
                     <div class="card-header">
                         <h5 class="fw-bold mb-0">
-                            @if(auth()->user()->hasRole('superAdmin'))
+                            @if(Auth::user()->hasRole('superAdmin'))
                                 Edit Company
                             @else
                                 Edit My Company
@@ -70,7 +70,7 @@
                                 </div>
 
                                 <div class="row">
-                                    @if(auth()->user()->hasRole('superAdmin') && $adminUsers->isNotEmpty())
+                                    @if(Auth::user()->hasRole('superAdmin') && $adminUsers->isNotEmpty())
                                         <!-- Admin Assignment (SuperAdmin only) -->
                                         <div class="col-md-6">
                                             <div class="mb-3">
@@ -305,7 +305,7 @@
             // Clear previous errors
             clearErrors();
             
-            fetch('@if(auth()->user()->hasRole('superAdmin')){{ route("superAdmin.company.update", $company->id) }}@else{{ route("admin.company.update") }}@endif', {
+            fetch('@if(Auth::user()->hasRole('superAdmin')){{ route("superAdmin.company.update", $company->id) }}@else{{ route("admin.company.update") }}@endif', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -320,7 +320,7 @@
                     
                     // Redirect after success
                     setTimeout(() => {
-                        @if(auth()->user()->hasRole('superAdmin'))
+                        @if(Auth::user()->hasRole('superAdmin'))
                             window.location.href = '{{ route("superAdmin.company.index") }}';
                         @else
                             window.location.href = '{{ route("admin.dashboard") }}';
@@ -346,7 +346,7 @@
 
         // Real-time field validation
         function validateField(fieldName, value, companyId) {
-            fetch('@if(auth()->user()->hasRole('superAdmin')){{ route("superAdmin.company.validate-field") }}@else{{ route("admin.company.validate-field") }}@endif', {
+            fetch('@if(Auth::user()->hasRole('superAdmin')){{ route("superAdmin.company.validate-field") }}@else{{ route("admin.company.validate-field") }}@endif', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
