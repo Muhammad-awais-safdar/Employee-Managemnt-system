@@ -45,16 +45,16 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            <a href="{{ route('teamlead.users.show', $user->id) }}" class="btn btn-info btn-sm">
+                                            <a href="{{ route('TeamLead.users.show', $user->id) }}" class="btn btn-info btn-sm">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             @if($canEdit)
-                                                <a href="{{ route('teamlead.users.edit', $user->id) }}" class="btn btn-warning btn-sm">
+                                                <a href="{{ route('TeamLead.users.edit', $user->id) }}" class="btn btn-warning btn-sm">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             @endif
                                             @if($canDelete)
-                                                <form action="{{ route('teamlead.users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('TeamLead.users.destroy', $user->id) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove this team member?')">

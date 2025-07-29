@@ -12,7 +12,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole(['superAdmin', 'admin', 'hr', 'team_lead']);
+        return $user->hasAnyRole(['superAdmin', 'Admin', 'HR', 'TeamLead']);
     }
 
     /**
@@ -31,21 +31,21 @@ class UserPolicy
         }
         
         // Admin can view users in their company (except super admins)
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('Admin')) {
             return $model->company_id === $user->company_id && 
                    !$model->hasRole('superAdmin');
         }
         
         // HR can view team leads and employees in their company
-        if ($user->hasRole('hr')) {
+        if ($user->hasRole('HR')) {
             return $model->company_id === $user->company_id && 
-                   $model->hasAnyRole(['team_lead', 'employee']);
+                   $model->hasAnyRole(['TeamLead', 'Employee']);
         }
         
         // Team lead can view their team members
-        if ($user->hasRole('team_lead')) {
+        if ($user->hasRole('TeamLead')) {
             return $model->team_lead_id === $user->id && 
-                   $model->hasRole('employee');
+                   $model->hasRole('Employee');
         }
         
         return false;
@@ -56,7 +56,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyRole(['superAdmin', 'admin', 'hr']);
+        return $user->hasAnyRole(['superAdmin', 'Admin', 'HR']);
     }
 
     /**
@@ -75,21 +75,21 @@ class UserPolicy
         }
         
         // Admin can update users in their company (except super admins and other admins)
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('Admin')) {
             return $model->company_id === $user->company_id && 
-                   !$model->hasAnyRole(['superAdmin', 'admin']);
+                   !$model->hasAnyRole(['superAdmin', 'Admin']);
         }
         
         // HR can update team leads and employees in their company
-        if ($user->hasRole('hr')) {
+        if ($user->hasRole('HR')) {
             return $model->company_id === $user->company_id && 
-                   $model->hasAnyRole(['team_lead', 'employee']);
+                   $model->hasAnyRole(['TeamLead', 'Employee']);
         }
         
         // Team lead can update their team members
-        if ($user->hasRole('team_lead')) {
+        if ($user->hasRole('TeamLead')) {
             return $model->team_lead_id === $user->id && 
-                   $model->hasRole('employee');
+                   $model->hasRole('Employee');
         }
         
         return false;
@@ -111,21 +111,21 @@ class UserPolicy
         }
         
         // Admin can delete users in their company (except super admins and other admins)
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('Admin')) {
             return $model->company_id === $user->company_id && 
-                   !$model->hasAnyRole(['superAdmin', 'admin']);
+                   !$model->hasAnyRole(['superAdmin', 'Admin']);
         }
         
         // HR can delete team leads and employees in their company
-        if ($user->hasRole('hr')) {
+        if ($user->hasRole('HR')) {
             return $model->company_id === $user->company_id && 
-                   $model->hasAnyRole(['team_lead', 'employee']);
+                   $model->hasAnyRole(['TeamLead', 'Employee']);
         }
         
         // Team lead can soft delete their team members
-        if ($user->hasRole('team_lead')) {
+        if ($user->hasRole('TeamLead')) {
             return $model->team_lead_id === $user->id && 
-                   $model->hasRole('employee');
+                   $model->hasRole('Employee');
         }
         
         return false;

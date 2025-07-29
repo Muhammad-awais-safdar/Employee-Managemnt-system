@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserRequest extends FormRequest
 {
@@ -18,17 +19,29 @@ class StoreUserRequest extends FormRequest
         }
         
         // Admin can create HR, Finance, Team Lead, Employee
-        if ($user->hasRole('admin')) {
-            $requestedRoles = Role::whereIn('id', $this->roles ?? [])->pluck('name');
-            $allowedRoles = ['hr', 'finance', 'team_lead', 'employee'];
-            return $requestedRoles->every(fn($role) => in_array($role, $allowedRoles));
+        if ($user->hasRole('Admin')) {
+            if (!$this->role) {
+                return false;
+            }
+            $requestedRole = Role::find($this->role);
+            if (!$requestedRole) {
+                return false;
+            }
+            $allowedRoles = ['HR', 'Finance', 'TeamLead', 'Employee'];
+            return in_array($requestedRole->name, $allowedRoles);
         }
         
         // HR can create Team Lead and Employee
-        if ($user->hasRole('hr')) {
-            $requestedRoles = Role::whereIn('id', $this->roles ?? [])->pluck('name');
-            $allowedRoles = ['team_lead', 'employee'];
-            return $requestedRoles->every(fn($role) => in_array($role, $allowedRoles));
+        if ($user->hasRole('HR')) {
+            if (!$this->role) {
+                return false;
+            }
+            $requestedRole = Role::find($this->role);
+            if (!$requestedRole) {
+                return false;
+            }
+            $allowedRoles = ['TeamLead', 'Employee'];
+            return in_array($requestedRole->name, $allowedRoles);
         }
         
         return false;
@@ -41,8 +54,7 @@ class StoreUserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'roles' => ['required', 'array'],
-            'roles.*' => ['exists:roles,id'],
+            'role' => ['required', 'exists:roles,id'],
             'team_lead_id' => ['nullable', 'exists:users,id'],
         ];
         
@@ -50,8 +62,11 @@ class StoreUserRequest extends FormRequest
         if ($user->hasRole('superAdmin')) {
             $rules['company_id'] = ['required', 'exists:companies,id'];
         } else {
-            // Other roles are restricted to their own company
-            $rules['company_id'] = ['required', Rule::in([$user->company_id])];
+            // For Admin and HR, company_id is set programmatically in controller
+            // Only validate if it's present in the request
+            if ($this->has('company_id')) {
+                $rules['company_id'] = ['required', Rule::in([$user->company_id])];
+            }
         }
         
         return $rules;

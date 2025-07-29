@@ -83,7 +83,9 @@ class CompanyController extends Controller
             unset($validated['admin_user_id']); 
 
             $company = Company::create($validated);
-
+            // Assign the company to the admin user
+            $adminUser->ownedCompany()->associate($company);
+            $adminUser->save(); 
             if ($request->ajax()) {
                 return response()->json([
                     'success' => true,
@@ -121,7 +123,7 @@ class CompanyController extends Controller
     public function show(string $id)
     {
         $company = Company::findOrFail($id);
-        return view('EmployeeManagemntsystem.SuperAdmin.Company.show', compact('company'));
+        return view('EmployeeManagemntsystem.superAdmin.Company.show', compact('company'));
     }
 
     /**
@@ -133,7 +135,7 @@ class CompanyController extends Controller
         
         // Get all users with admin role who don't have a company, plus the current company's admin
         $adminUsers = User::whereHas('roles', function($query) {
-            $query->where('name', 'admin');
+            $query->where('name', 'Admin');
         })->where(function($query) use ($company) {
             $query->whereDoesntHave('ownedCompany')
                   ->orWhere('id', $company->user_id);
@@ -204,7 +206,7 @@ class CompanyController extends Controller
             if (isset($validated['admin_user_id'])) {
                 $adminUser = User::where('id', $validated['admin_user_id'])
                     ->whereHas('roles', function($query) {
-                        $query->where('name', 'admin');
+                        $query->where('name', 'Admin');
                     })
                     ->firstOrFail();
                 
@@ -371,7 +373,7 @@ class CompanyController extends Controller
         $user = Auth::user();
         
         // Check if user has admin role
-        if (!$user->hasRole('admin')) {
+        if (!$user->hasRole('Admin')) {
             abort(403, 'Only admin users can edit companies.');
         }
         
@@ -397,7 +399,7 @@ class CompanyController extends Controller
         $user = Auth::user();
         
         // Check if user has admin role
-        if (!$user->hasRole('admin')) {
+        if (!$user->hasRole('Admin')) {
             abort(403, 'Only admin users can edit companies.');
         }
         

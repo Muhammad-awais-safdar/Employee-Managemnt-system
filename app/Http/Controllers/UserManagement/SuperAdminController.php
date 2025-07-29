@@ -16,17 +16,33 @@ class SuperAdminController extends BaseUserController
     
     public function index()
     {
+        // Get all roles to create tabs
+        $roles = \Spatie\Permission\Models\Role::orderBy('name')->get();
+        
+        // Get all users with their roles and company
         $users = $this->getBaseQuery()
-            ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
-            ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-            ->orderBy('roles.name', 'desc')
-            ->orderBy('users.created_at', 'desc')
-            ->paginate(10);
+            ->with(['roles', 'company'])
+            ->get()
+            ->groupBy(function($user) {
+                return $user->roles->first()->name ?? 'No Role';
+            });
             
+        // Sort the user groups by role name
+        $sortedUsers = [];
+        foreach ($roles as $role) {
+            if (isset($users[$role->name])) {
+                $sortedUsers[$role->name] = $users[$role->name];
+            }
+        }
+        
+        // Add users with no role to the end
+        if (isset($users['No Role'])) {
+            $sortedUsers['No Role'] = $users['No Role'];
+        }
 
-            // return $users;
         return view($this->viewPrefix . 'index', [
-            'users' => $users,
+            'usersByRole' => $sortedUsers,
+            'roles' => $roles,
             'canCreate' => true,
             'canEdit' => true,
             'canDelete' => true
@@ -47,14 +63,40 @@ class SuperAdminController extends BaseUserController
     
     public function store(StoreUserRequest $request)
     {
+        \Log::info('SuperAdmin store - Raw request data', [
+            'all_data' => $request->all(),
+            'roles' => $request->roles,
+            'roles_type' => gettype($request->roles),
+            'roles_count' => is_array($request->roles) ? count($request->roles) : 'not_array'
+        ]);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'company_id' => $request->company_id,
+            'team_lead_id' => $request->team_lead_id,
         ]);
         
-        $user->syncRoles($request->roles);
+        // Assign single role
+        if ($request->role) {
+            $role = \Spatie\Permission\Models\Role::find($request->role);
+            if ($role) {
+                \Log::info('SuperAdmin store - Assigning role', [
+                    'role_id' => $request->role,
+                    'role_name' => $role->name
+                ]);
+                $user->assignRole($role->name);
+            } else {
+                \Log::warning('SuperAdmin store - Invalid role ID', [
+                    'role_id' => $request->role
+                ]);
+            }
+        } else {
+            \Log::warning('SuperAdmin store - No role provided', [
+                'role' => $request->role
+            ]);
+        }
         
         return redirect()->route('superAdmin.users.index')
             ->with('success', 'User created successfully');
@@ -94,6 +136,7 @@ class SuperAdminController extends BaseUserController
             'name' => $request->name,
             'email' => $request->email,
             'company_id' => $request->company_id,
+            'team_lead_id' => $request->team_lead_id,
         ];
         
         if ($request->filled('password')) {
@@ -103,21 +146,18 @@ class SuperAdminController extends BaseUserController
         // Update user details
         $user->update($data);
         
-        // Get the selected roles from the request
-        $selectedRoles = $request->roles ?? [];
-        
-        // Ensure it's an array
-        if (is_string($selectedRoles)) {
-            $selectedRoles = [$selectedRoles];
-        }
-        
-        // Get the user's current roles
-        $currentRoles = $user->getRoleNames()->toArray();
-        
-        // Only update roles if they've changed
-        if (array_diff($selectedRoles, $currentRoles) || array_diff($currentRoles, $selectedRoles)) {
-            // Use syncRoles to update the roles for this specific user only
-            $user->syncRoles($selectedRoles);
+        // Handle single role update
+        if ($request->role) {
+            $role = \Spatie\Permission\Models\Role::find($request->role);
+            if ($role) {
+                // Get current role
+                $currentRole = $user->getRoleNames()->first();
+                
+                // Only update if role has changed
+                if ($currentRole !== $role->name) {
+                    $user->syncRoles([$role->name]);
+                }
+            }
         }
 
         return redirect()->route('superAdmin.users.index')->with('success', 'User updated successfully');

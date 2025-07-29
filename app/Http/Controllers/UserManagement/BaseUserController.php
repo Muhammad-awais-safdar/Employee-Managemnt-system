@@ -34,12 +34,12 @@ abstract class BaseUserController extends Controller
             return Role::all();
         }
         
-        if ($this->user->hasRole('admin')) {
-            return Role::whereIn('name', ['hr', 'finance', 'team_lead', 'employee'])->get();
+        if ($this->user->hasRole('Admin')) {
+            return Role::whereIn('name', ['HR', 'Finance', 'TeamLead', 'Employee'])->get();
         }
         
-        if ($this->user->hasRole('hr')) {
-            return Role::whereIn('name', ['team_lead', 'employee'])->get();
+        if ($this->user->hasRole('HR')) {
+            return Role::whereIn('name', ['TeamLead', 'Employee'])->get();
         }
         
         return collect();
@@ -66,23 +66,23 @@ abstract class BaseUserController extends Controller
             return true;
         }
         
-        if ($this->user->hasRole('admin')) {
+        if ($this->user->hasRole('Admin')) {
             // Admin can only manage users in their company, except super admins
             return $user && $user->company_id === $this->user->company_id && !$user->hasRole('superAdmin|admin');
         }
         
-        if ($this->user->hasRole('hr')) {
+        if ($this->user->hasRole('HR')) {
             // HR can only manage team leads and employees in their company
             return $user && 
                    $user->company_id === $this->user->company_id && 
-                   $user->hasRole('team_lead|employee');
+                   $user->hasRole('TeamLead|Employee');
         }
         
-        if ($this->user->hasRole('team_lead')) {
+        if ($this->user->hasRole('TeamLead')) {
             // Team leads can only manage their team members
             return $user && 
                    $user->company_id === $this->user->company_id && 
-                   $user->hasRole('employee') && 
+                   $user->hasRole('Employee') && 
                    $user->team_lead_id === $this->user->id;
         }
         
@@ -102,19 +102,19 @@ abstract class BaseUserController extends Controller
         
         $query->where('company_id', $this->user->company_id);
         
-        if ($this->user->hasRole('admin')) {
-            return $query->whereDoesntHave('roles', function($q) {
-                $q->whereIn('name', ['superAdmin', 'admin']);
-            });
-        }
-        
-        if ($this->user->hasRole('hr')) {
+        if ($this->user->hasRole('Admin')) {
             return $query->whereHas('roles', function($q) {
-                $q->whereIn('name', ['team_lead', 'employee']);
+                $q->whereIn('name', ['HR', 'Finance', 'TeamLead', 'Employee']);
             });
         }
         
-        if ($this->user->hasRole('team_lead')) {
+        if ($this->user->hasRole('HR')) {
+            return $query->whereHas('roles', function($q) {
+                $q->whereIn('name', ['TeamLead', 'Employee']);
+            });
+        }
+        
+        if ($this->user->hasRole('TeamLead')) {
             return $query->where('team_lead_id', $this->user->id);
         }
         

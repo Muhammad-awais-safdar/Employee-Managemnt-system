@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('superAdmin.users.update', $user->id) }}">
+                    <form method="POST" action="{{ route('Admin.users.update', $user->id) }}">
                         @csrf
                         @method('PUT')
 
@@ -59,51 +59,39 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="company_id" class="col-md-4 col-form-label text-md-end">{{ __('Company') }}</label>
+                            <label for="company" class="col-md-4 col-form-label text-md-end">{{ __('Company') }}</label>
                             <div class="col-md-6">
-                                <select name="company_id" id="company_id" class="form-control  text-dark @error('company_id') is-invalid @enderror" required>
-                                    <option value="">Select Company</option>
-                                    @foreach($companies as $company)
-                                        <option value="{{ $company->id }}" {{ (old('company_id', $user->company_id) == $company->id) ? 'selected' : '' }}>
-                                            {{ $company->company_name }}
+                                <input type="text" class="form-control" value="{{ $company->company_name }}" readonly>
+                                <small class="form-text text-muted">User belongs to your company</small>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="roles" class="col-md-4 col-form-label text-md-end">Role</label>
+                            <div class="col-md-6">
+                                <select name="role" id="role" class="form-control text-dark" required>
+                                    <option value="">Select Role</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}" 
+                                            {{ in_array($role->name, $userRoles) ? 'selected' : '' }}>
+                                            {{ ucfirst($role->name) }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('company_id')
-                                    <span class="invalid-feedback" role="alert">
+                                @error('role')
+                                    <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
 
-                      <div class="row mb-3">
-    <label for="role" class="col-md-4 col-form-label text-md-end">Role</label>
-    <div class="col-md-6">
-        <select name="role" id="role" class="form-control text-dark" required>
-            <option value="">Select Role</option>
-            @foreach($roles as $role)
-                <option value="{{ $role->id }}" 
-                    {{ in_array($role->name, $user->getRoleNames()->toArray()) ? 'selected' : '' }}>
-                    {{ ucfirst($role->name) }}
-                </option>
-            @endforeach
-        </select>
-        @error('role')
-            <span class="text-danger" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-    </div>
-</div>
-
-
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Update User') }}
                                 </button>
-                                <a href="{{ route('superAdmin.users.index') }}" class="btn btn-secondary">
+                                <a href="{{ route('Admin.users.index') }}" class="btn btn-secondary">
                                     {{ __('Cancel') }}
                                 </a>
                             </div>

@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('superAdmin.users.store') }}">
+                    <form method="POST" action="{{ route('HR.users.store') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -57,21 +57,10 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="company_id" class="col-md-4 col-form-label text-md-end">{{ __('Company') }}</label>
+                            <label for="company" class="col-md-4 col-form-label text-md-end">{{ __('Company') }}</label>
                             <div class="col-md-6">
-                                <select name="company_id" id="company_id" class="form-control @error('company_id') is-invalid @enderror" required>
-                                    <option value="">Select Company</option>
-                                    @foreach($companies as $company)
-                                        <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>
-                                            {{ $company->company_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('company_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input type="text" class="form-control" value="{{ $company->company_name }}" readonly>
+                                <small class="form-text text-muted">Users will be created in your company</small>
                             </div>
                         </div>
 
@@ -98,9 +87,9 @@
                             <div class="col-md-6">
                                 <select name="team_lead_id" id="team_lead_id" class="form-control @error('team_lead_id') is-invalid @enderror">
                                     <option value="">Select Team Lead (Optional)</option>
-                                    @foreach(\App\Models\User::role('TeamLead')->get() as $teamLead)
-                                        <option value="{{ $teamLead->id }}" {{ old('team_lead_id') == $teamLead->id ? 'selected' : '' }}>
-                                            {{ $teamLead->name }} ({{ $teamLead->company->company_name ?? 'N/A' }})
+                                    @foreach($teamLeads as $id => $name)
+                                        <option value="{{ $id }}" {{ old('team_lead_id') == $id ? 'selected' : '' }}>
+                                            {{ $name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -117,7 +106,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Create User') }}
                                 </button>
-                                <a href="{{ route('superAdmin.users.index') }}" class="btn btn-secondary">
+                                <a href="{{ route('HR.users.index') }}" class="btn btn-secondary">
                                     {{ __('Cancel') }}
                                 </a>
                             </div>

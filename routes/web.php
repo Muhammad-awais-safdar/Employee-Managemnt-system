@@ -3,9 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserManagement\SuperAdminController;
 use App\Http\Controllers\UserManagement\AdminController;
 use App\Http\Controllers\UserManagement\HrController;
+use App\Http\Controllers\UserManagement\SuperAdminController;
 use App\Http\Controllers\UserManagement\TeamLeadController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +37,7 @@ Route::middleware(['role:superAdmin'])->prefix('superadmin')->as('superAdmin.')-
 // ----------------------------
 // COMPANY ADMIN & SUPERADMIN
 // ----------------------------
-Route::middleware(['role:superAdmin|admin'])->prefix('admin')->as('Admin.')->group(function () {
+Route::middleware(['role:superAdmin|Admin'])->prefix('admin')->as('Admin.')->group(function () {
     Route::get('/dashboard', function () {
         return view('EmployeeManagemntsystem.Admin.dashboard');
     })->name('dashboard');
@@ -55,7 +55,7 @@ Route::middleware(['role:superAdmin|admin'])->prefix('admin')->as('Admin.')->gro
 // ----------------------------
 // HR + ADMIN + SUPERADMIN
 // ----------------------------
-Route::middleware(['role:superAdmin|admin|hr'])->prefix('hr')->as('HR.')->group(function () {
+Route::middleware(['role:superAdmin|Admin|HR'])->prefix('hr')->as('HR.')->group(function () {
     Route::get('/dashboard', function () {
         return view('EmployeeManagemntsystem.HR.dashboard');
     })->name('dashboard');
@@ -68,7 +68,7 @@ Route::middleware(['role:superAdmin|admin|hr'])->prefix('hr')->as('HR.')->group(
 // ----------------------------
 // TEAM LEAD + HR + ADMIN + SUPERADMIN
 // ----------------------------
-Route::middleware(['role:superAdmin|admin|hr|team_lead'])->prefix('teamlead')->as('TeamLead.')->group(function () {
+Route::middleware(['role:superAdmin|Admin|HR|TeamLead'])->prefix('teamlead')->as('TeamLead.')->group(function () {
     Route::get('/dashboard', function () {
         return view('EmployeeManagemntsystem.TeamLead.dashboard');
     })->name('dashboard');
@@ -81,7 +81,7 @@ Route::middleware(['role:superAdmin|admin|hr|team_lead'])->prefix('teamlead')->a
 // ----------------------------
 // FINANCE + ADMIN + SUPERADMIN
 // ----------------------------
-Route::middleware(['role:superAdmin|admin|finance'])->prefix('finance')->as('Finance.')->group(function () {
+Route::middleware(['role:superAdmin|Admin|Finance'])->prefix('finance')->as('Finance.')->group(function () {
     Route::get('/dashboard', function () {
         return view('EmployeeManagemntsystem.Finance.dashboard');
     })->name('dashboard');
@@ -92,7 +92,7 @@ Route::middleware(['role:superAdmin|admin|finance'])->prefix('finance')->as('Fin
 // ----------------------------
 // EMPLOYEE ONLY
 // ----------------------------
-Route::middleware(['role:employee'])->prefix('employee')->as('Employee.')->group(function () {
+Route::middleware(['role:Employee'])->prefix('employee')->as('Employee.')->group(function () {
     Route::get('/dashboard', function () {
         return view('EmployeeManagemntsystem.employee.dashboard');
     })->name('dashboard');

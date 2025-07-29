@@ -103,7 +103,7 @@
                           <li>
                               @php
                                   $role = auth()->check() ? Auth::user()->getRoleNames()->first() : null;
-                                //   dd($role);
+                                  //   dd($role);
                                   $dashboardRoute =
                                       $role && Route::has($role . '.users.index')
                                           ? route($role . '.users.index')
@@ -391,7 +391,7 @@
               </div>
           </div>
           <div class="p-3 pt-0">
-              <a href={{ asset('login.html') }} class="btn btn-danger w-100"><i
+              <a href={{ route('logout') }} class="btn btn-danger w-100"><i
                       class="ti ti-logout-2 me-1"></i>Logout</a>
           </div>
       </div>

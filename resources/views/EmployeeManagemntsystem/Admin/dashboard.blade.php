@@ -54,7 +54,7 @@
                                                 @endif
                                             </div>
                                             @if(Auth::user()->ownedCompany)
-                                                <a href="{{ route('admin.company.edit') }}" class="btn btn-sm btn-outline-primary">
+                                                <a href="{{ route('Admin.company.edit') }}" class="btn btn-sm btn-outline-primary">
                                                     <i class="ti ti-edit"></i>
                                                 </a>
                                             @endif
