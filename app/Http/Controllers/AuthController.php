@@ -13,11 +13,13 @@ class AuthController extends Controller
 
     public function index(){
         if (Auth::check()) {
-            $role = auth()->user()->getRoleNames()->first(); // returns role name like 'admin'
+            $role = Auth::user()->getRoleNames()->first();
             return redirect()->route($role . '.dashboard');
         }
         return view('Auth.Login');
     }
+
+    
 
     public function login(Request $request)
     {
@@ -49,11 +51,11 @@ class AuthController extends Controller
             // Role-based redirect logic
             $roleRedirectMap = [
                 'superAdmin' => route('superAdmin.dashboard'),
-                'admin'      => route('admin.dashboard'),
-                'hr'         => route('hr.dashboard'),
-                'teamLead'   => route('teamlead.dashboard'),
-                'finance'    => route('finance.dashboard'),
-                'employee'   => route('employee.dashboard'),
+                'Admin'      => route('Admin.dashboard'),
+                'HR'         => route('HR.dashboard'),
+                'teamLead'   => route('TeamLead.dashboard'),
+                'finance'    => route('Finance.dashboard'),
+                'Employee'   => route('Employee.dashboard'),
             ];
 
             $userRole = $user->getRoleNames()->first(); // Assumes single-role per user

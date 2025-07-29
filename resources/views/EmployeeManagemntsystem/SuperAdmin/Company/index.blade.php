@@ -105,8 +105,8 @@
                     </td>
                     <td>{{ $company->contact_person ?: '-' }}</td>
                     <td>
-                        @if($company->email)
-                            <a href="mailto:{{ $company->email }}" class="text-decoration-none">{{ $company->email }}</a>
+                        @if($company->user)
+                            <a href="mailto:{{ $company->user->email }}" class="text-decoration-none">{{ $company->user->email }}</a>
                         @else
                             -
                         @endif

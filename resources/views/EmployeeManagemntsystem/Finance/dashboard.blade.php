@@ -9,7 +9,7 @@
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb breadcrumb-divide p-0 mb-0">
                                            @php
-                                                $role = auth()->check() ? auth()->user()->getRoleNames()->first() : null;
+                                                $role = auth()->check() ? Auth::user()->getRoleNames()->first() : null;
                                                 $dashboardRoute = $role && Route::has($role . '.dashboard') ? route($role . '.dashboard') : route('login');
                                             @endphp
                                             <li class="breadcrumb-item d-flex align-items-center"><a href={{ $dashboardRoute }}>Home</a></li>

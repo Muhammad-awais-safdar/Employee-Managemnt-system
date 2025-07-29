@@ -90,14 +90,27 @@
                       <ul>
                           @if (Auth::user()->hasRole('superAdmin'))
                               <li>
-                              <a href={{ route('superAdmin.company.index') }}>
-                                  <i class="ti ti-building-community"></i><span>Companies</span>
-                              </a>
-                          </li>
+                                  <a href={{ route('superAdmin.company.index') }}>
+                                      <i class="ti ti-building-community"></i><span>Companies</span>
+                                  </a>
+                              </li>
                           @endif
                           <li>
                               <a href={{ asset('employees.html') }}>
                                   <i class="ti ti-users-group"></i><span>Employee</span>
+                              </a>
+                          </li>
+                          <li>
+                              @php
+                                  $role = auth()->check() ? Auth::user()->getRoleNames()->first() : null;
+                                  //   dd($role);
+                                  $dashboardRoute =
+                                      $role && Route::has($role . '.users.index')
+                                          ? route($role . '.users.index')
+                                          : route('login');
+                              @endphp
+                              <a href="{{ $dashboardRoute }}">
+                                  <i class="ti ti-users-group"></i><span>Users</span>
                               </a>
                           </li>
                           <li>
@@ -378,7 +391,7 @@
               </div>
           </div>
           <div class="p-3 pt-0">
-              <a href={{ asset('login.html') }} class="btn btn-danger w-100"><i
+              <a href={{ route('logout') }} class="btn btn-danger w-100"><i
                       class="ti ti-logout-2 me-1"></i>Logout</a>
           </div>
       </div>

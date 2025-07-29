@@ -9,7 +9,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb breadcrumb-divide p-0 mb-0">
                                 @php
-                                    $role = auth()->check() ? auth()->user()->getRoleNames()->first() : null;
+                                    $role = auth()->check() ? Auth::user()->getRoleNames()->first() : null;
                                     $dashboardRoute =
                                         $role && Route::has($role . '.dashboard')
                                             ? route($role . '.dashboard')
@@ -20,7 +20,7 @@
                                 <li class="breadcrumb-item fw-medium active" aria-current="page">Dashboard</li>
                             </ol>
                         </nav>
-                        <h5 class="fw-bold mb-0">{{ Auth::user()->getRoleNames }} Dashboard</h5>
+                        <h5 class="fw-bold mb-0">{{ Str::title(Auth::user()->getRoleNames()->first()) }} Dashboard</h5>
                     </div>
                 </div><!-- end card body -->
             </div><!-- end card -->
@@ -49,12 +49,21 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
-                                    <div class="avatar avtar-lg bg-warning mb-2"><img
-                                            src={{ asset('assets/img/icons/dashboard-card-icon-01.svg') }}
-                                            class="w-auto h-auto" alt="Icon"></div>
-                                    <h6 class="fs-14 fw-semibold mb-0">Companies</h6>
+                                    <div class="avatar avtar-lg bg-warning mb-2">
+                                        <i class="ti ti-building text-white fs-3"></i>
+                                    </div>
+                                    <h6 class="fs-14 fw-semibold mb-0">My Company</h6>
+                                    @if (Auth::user()->ownedCompany)
+                                        <small class="text-muted">{{ Auth::user()->ownedCompany->company_name }}</small>
+                                    @else
+                                        <small class="text-muted">No company assigned</small>
+                                    @endif
                                 </div>
-                                <div id="circle_chart_2"></div>
+                                @if (Auth::user()->ownedCompany)
+                                    <a href="{{ route('admin.company.edit') }}" class="btn btn-sm btn-outline-primary">
+                                        <i class="ti ti-edit"></i>
+                                    </a>
+                                @endif
                             </div>
                         </div><!-- end card body -->
                     </div><!-- end card -->
@@ -451,14 +460,12 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href={{ route('javascript:void(0);') }}
-                                                class="avatar avatar-sm avatar-rounded">
+                                            <a href="javascript:void(0);" class="avatar avatar-sm avatar-rounded">
                                                 <img src={{ asset('assets/img/employees/employee-08.jpg') }}
                                                     alt="img">
                                             </a>
                                             <div class="ms-2">
-                                                <h6 class="fs-14 mb-0"><a href={{ route('javascript:void(0);') }}>Emily
-                                                        Clark</a></h6>
+                                                <h6 class="fs-14 mb-0"><a href="javascript:void(0);">Emily Clark</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -564,14 +571,12 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href={{ route('javascript:void(0);') }}
-                                                class="avatar avatar-sm avatar-rounded">
+                                            <a href="javascript:void(0);" class="avatar avatar-sm avatar-rounded">
                                                 <img src={{ asset('assets/img/employees/employee-02.jpg') }}
                                                     alt="img">
                                             </a>
                                             <div class="ms-2">
-                                                <h6 class="fs-14 mb-0"><a href={{ route('javascript:void(0);') }}>Sophia
-                                                        White</a></h6>
+                                                <h6 class="fs-14 mb-0"><a href="javascript:void(0);">Sophia White</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -706,7 +711,7 @@
                                 <span class="fs-13 mb-0">Scheduled for 04:00 PM on 18 Apr 2025</span>
                             </label>
                         </div>
-                        <a href={{ route('javascript:void(0);') }} class="btn btn-icon btn-sm btn-outline-white"
+                        <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-outline-white"
                             data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                     </div>
                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
@@ -720,7 +725,7 @@
                                 <span class="fs-13 mb-0">Scheduled for 04:00 PM on 18 Apr 2025</span>
                             </label>
                         </div>
-                        <a href={{ route('javascript:void(0);') }} class="btn btn-icon btn-sm btn-outline-white"
+                        <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-outline-white"
                             data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                     </div>
                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
@@ -734,7 +739,7 @@
                                 <span class="fs-13 mb-0">Scheduled for 04:00 PM on 18 Apr 2025</span>
                             </label>
                         </div>
-                        <a href={{ route('javascript:void(0);') }} class="btn btn-icon btn-sm btn-outline-white"
+                        <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-outline-white"
                             data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                     </div>
                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
@@ -748,7 +753,7 @@
                                 <span class="fs-13 mb-0">Scheduled for 04:00 PM on 18 Apr 2025</span>
                             </label>
                         </div>
-                        <a href={{ route('javascript:void(0);') }} class="btn btn-icon btn-sm btn-outline-white"
+                        <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-outline-white"
                             data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                     </div>
                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
@@ -762,7 +767,7 @@
                                 <span class="fs-13 mb-0">Scheduled for 04:00 PM on 18 Apr 2025</span>
                             </label>
                         </div>
-                        <a href={{ route('javascript:void(0);') }} class="btn btn-icon btn-sm btn-outline-white"
+                        <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-outline-white"
                             data-bs-toggle="modal" data-bs-target="#delete_modal"><i class="ti ti-trash"></i></a>
                     </div>
                 </div> <!-- end card body -->
