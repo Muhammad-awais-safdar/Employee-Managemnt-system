@@ -56,6 +56,34 @@ class StoreUserRequest extends FormRequest
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['required', 'exists:roles,id'],
             'team_lead_id' => ['nullable', 'exists:users,id'],
+            
+            // Employee Information
+            'employee_id' => ['nullable', 'string', 'max:50', 'unique:users'],
+            'salary' => ['required', 'numeric', 'min:0', 'max:99999999.99'],
+            'date_of_joining' => ['nullable', 'date'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'address' => ['nullable', 'string'],
+            'date_of_birth' => ['nullable', 'date', 'before:today'],
+            'gender' => ['nullable', 'in:male,female,other'],
+            'marital_status' => ['nullable', 'in:single,married,divorced,widowed'],
+            'qualification' => ['nullable', 'string', 'max:255'],
+            'experience_years' => ['nullable', 'integer', 'min:0', 'max:50'],
+            'skills' => ['nullable', 'string'],
+            'department_id' => ['nullable', 'exists:departments,id'],
+            
+            // Emergency Contact
+            'emergency_contact_name' => ['nullable', 'string', 'max:255'],
+            'emergency_contact_phone' => ['nullable', 'string', 'max:20'],
+            
+            // Tax Information
+            'filing_status' => ['required', 'in:single,married_jointly,married_separately,head_of_household'],
+            'allowances' => ['nullable', 'integer', 'min:0', 'max:20'],
+            'additional_withholding' => ['nullable', 'numeric', 'min:0', 'max:9999.99'],
+            'exempt_from_federal' => ['nullable', 'boolean'],
+            'exempt_from_state' => ['nullable', 'boolean'],
+            'exempt_from_local' => ['nullable', 'boolean'],
+            'health_insurance_premium' => ['nullable', 'numeric', 'min:0', 'max:9999.99'],
+            'retirement_contribution_percent' => ['nullable', 'numeric', 'min:0', 'max:100'],
         ];
         
         // Super admin can assign any company

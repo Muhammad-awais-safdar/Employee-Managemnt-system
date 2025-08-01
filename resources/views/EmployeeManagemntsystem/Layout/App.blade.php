@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Dleohr is a clean and modern human resource management admin dashboard template which is based on HTML 5, Bootstrap 5. Try Demo and Buy Now!">
 	<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
-    <title>Dashboard | Dleohr</title>
+    <title> @section('title') | Dleohr</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="Dreams Technologies">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -60,15 +60,37 @@
                     <!-- Logo -->
                     <a href={{ asset('index.html') }} class="logo">
 
+                        @php
+                            $user = Auth::user();
+                            $companyLogo = null;
+                            $companyName = 'Employee Management System';
+                            
+                            if ($user && $user->company && $user->company->logo) {
+                                $companyLogo = asset('storage/' . $user->company->logo);
+                                $companyName = $user->company->name;
+                            }
+                            
+                            // Fallback logos
+                            $defaultLogo = asset('assets/img/logo.svg');
+                            $defaultSmallLogo = asset('assets/img/logo-small.svg');
+                            $defaultDarkLogo = asset('assets/img/logo-white.svg');
+                        @endphp
+
                         <!-- Logo Normal -->
                         <span class="logo-light">
-                            <span class="logo-lg"><img src={{ asset('assets/img/logo.svg') }} alt="logo"></span>
-                            <span class="logo-sm"><img src={{ asset('assets/img/logo-small.svg') }} alt="small logo"></span>
+                            <span class="logo-lg">
+                                <img src="{{ $companyLogo ?: $defaultLogo }}" alt="{{ $companyName }} logo" style="max-height: 40px; width: auto;">
+                            </span>
+                            <span class="logo-sm">
+                                <img src="{{ $companyLogo ?: $defaultSmallLogo }}" alt="{{ $companyName }} small logo" style="max-height: 30px; width: auto;">
+                            </span>
                         </span>
 
                         <!-- Logo Dark -->
                         <span class="logo-dark">
-                            <span class="logo-lg"><img src={{ asset('assets/img/logo-white.svg') }} alt="dark logo"></span>
+                            <span class="logo-lg">
+                                <img src="{{ $companyLogo ?: $defaultDarkLogo }}" alt="{{ $companyName }} dark logo" style="max-height: 40px; width: auto;">
+                            </span>
                         </span>
                     </a>
 
@@ -158,135 +180,7 @@
                     </div>
 					
 					<!-- Notification Dropdown -->
-                    <div class="header-item">
-						<div class="dropdown me-2">
-						
-							<button class="topbar-link btn btn-icon topbar-link dropdown-toggle drop-arrow-none" data-bs-toggle="dropdown" data-bs-offset="0,24" type="button" aria-haspopup="false" aria-expanded="false">
-								<i class="ti ti-bell fs-16 animate-ring fs-16"></i>
-								<span class="notification-badge"></span>
-							</button>
-							
-							<div class="dropdown-menu p-0 dropdown-menu-end dropdown-menu-lg" style="min-height: 300px;">
-							
-								<div class="p-2 border-bottom">
-									<div class="row align-items-center">
-										<div class="col">
-											<h6 class="m-0 fs-16 fw-semibold"> Notifications</h6>
-										</div>
-									</div>
-								</div>
-								
-								<!-- Notification Body -->
-								<div class="notification-body position-relative z-2 rounded-0" data-simplebar>
-								 
-									<!-- Item-->
-									<div class="dropdown-item notification-item py-3 text-wrap border-bottom" id="notification-1">
-										<div class="d-flex">
-											<div class="me-2 position-relative flex-shrink-0">
-												<img src={{ asset('assets/img/users/avatar-2.jpg') }} class="avatar-md rounded-circle" alt="">
-											</div>
-											<div class="flex-grow-1">
-												<p class="mb-0 fw-medium text-dark">Daniel Martinz</p>
-												<p class="mb-1 text-wrap">
-													<span class="fw-medium text-dark">Daniel Martinz</span> equested Sick Leave from May 28 2025 to May 29 2025
-												</p>
-												<div class="d-flex justify-content-between align-items-center">
-													<span class="fs-12"><i class="ti ti-clock me-1"></i>4 min ago</span>
-													<div class="notification-action d-flex align-items-center float-end gap-2">
-														<a href="javascript:void(0);" class="notification-read rounded-circle bg-danger" data-bs-toggle="tooltip" title="" data-bs-original-title="Make as Read" aria-label="Make as Read"></a>
-														<button class="btn rounded-circle p-0" data-dismissible="#notification-1">
-															<i class="ti ti-x"></i>
-														</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-							
-									<!-- Item-->
-									<div class="dropdown-item notification-item py-3 text-wrap border-bottom" id="notification-2">
-										<div class="d-flex">
-											<div class="me-2 position-relative flex-shrink-0">
-												<img src={{ asset('assets/img/users/user-02.jpg') }} class="avatar-md rounded-circle" alt="">
-											</div>
-											<div class="flex-grow-1">
-												<p class="mb-0 fw-medium text-dark">Emily Clark</p>
-												<p class="mb-1 text-wrap">
-                                                    Leave for  <span class="fw-medium text-dark"> Emily Clark</span>  has been approved.
-												</p>
-												<div class="d-flex justify-content-between align-items-center">
-													<span class="fs-12"><i class="ti ti-clock me-1"></i>8 min ago</span>
-													<div class="notification-action d-flex align-items-center float-end gap-2">
-														<a href="javascript:void(0);" class="notification-read rounded-circle bg-danger" data-bs-toggle="tooltip" title="" data-bs-original-title="Make as Read" aria-label="Make as Read"></a>
-														<button class="btn rounded-circle p-0" data-dismissible="#notification-2">
-															<i class="ti ti-x"></i>
-														</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									<!-- Item-->
-									<div class="dropdown-item notification-item py-3 text-wrap border-bottom" id="notification-3">
-										<div class="d-flex">
-											<div class="me-2 position-relative flex-shrink-0">
-												<img src={{ asset('assets/img/users/user-04.jpg') }} class="avatar-md rounded-circle" alt="">
-											</div>
-											<div class="flex-grow-1">
-												<p class="mb-0 fw-medium text-dark"> David</p>
-												<p class="mb-1 text-wrap">
-                                                    Leave request from  <span class="fw-medium text-dark">David Anderson</span>has been rejected.
-												</p>
-												<div class="d-flex justify-content-between align-items-center">
-													<span class="fs-12"><i class="ti ti-clock me-1"></i>15 min ago</span>
-													<div class="notification-action d-flex align-items-center float-end gap-2">
-														<a href="javascript:void(0);" class="notification-read rounded-circle bg-danger" data-bs-toggle="tooltip" title="" data-bs-original-title="Make as Read" aria-label="Make as Read"></a>
-														<button class="btn rounded-circle p-0" data-dismissible="#notification-3">
-															<i class="ti ti-x"></i>
-														</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									<!-- Item-->
-									<div class="dropdown-item notification-item py-3 text-wrap" id="notification-4">
-										<div class="d-flex">
-											<div class="me-2 position-relative flex-shrink-0">
-												<img src={{ asset('assets/img/users/user-24.jpg') }} class="avatar-md rounded-circle" alt="">
-											</div>
-											<div class="flex-grow-1">
-												<p class="mb-0 fw-medium text-dark">Ann McClure</p>
-												<p class="mb-1 text-wrap">
-                                                    cancelled her appointment scheduled for <span class="fw-medium text-dark">February 5, 2024</span>
-												</p>
-												<div class="d-flex justify-content-between align-items-center">
-													<span class="fs-12"><i class="ti ti-clock me-1"></i>20 min ago</span>
-													<div class="notification-action d-flex align-items-center float-end gap-2">
-														<a href="javascript:void(0);" class="notification-read rounded-circle bg-danger" data-bs-toggle="tooltip" title="" data-bs-original-title="Make as Read" aria-label="Make as Read"></a>
-														<button class="btn rounded-circle p-0" data-dismissible="#notification-4">
-															<i class="ti ti-x"></i>
-														</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									 
-								</div>
-								
-								<!-- View All-->
-								<div class="p-2 rounded-bottom border-top text-center">
-									<a href={{ asset('notifications.html') }} class="text-center text-decoration-underline fs-14 mb-0">
-										View All Notifications
-									</a>
-								</div>
-								
-							</div>
-						</div>
-					</div>
+                    @include('Component.NotificationDropdown')
 
                     <!-- Settings -->
                     <div class="header-item">
@@ -368,6 +262,39 @@
     </div>
     <!-- End Wrapper -->
 
+    <!-- jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+    
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    
+    <script>
+        // Toastr configuration
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+    </script>
+
     <!-- Bootstrap Core JS -->
     <script src={{ asset('assets/js/bootstrap.bundle.min.js') }} ></script>    
 
@@ -385,5 +312,6 @@
 
     <!-- Main JS -->
     <script src={{ asset('assets/js/script.js') }} ></script>
+    @stack('scripts')
 </body>
 </html>

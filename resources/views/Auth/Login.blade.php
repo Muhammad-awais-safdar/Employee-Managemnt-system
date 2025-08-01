@@ -6,7 +6,7 @@
             @csrf
             <div class="d-flex flex-column justify-content-lg-center p-4 p-lg-0 pb-0 flex-fill">
                 <div class="mx-auto mb-4 text-center">
-                    <img src="{{ asset('assets/img/logo.svg') }}" class="img-fluid" width="100" alt="Logo">
+                    <img src="{{ asset('assets/img/logo.svg') }}" class="img-fluid" width="100" alt="Employee Management System Logo">
                 </div>
                 <div class="card border-0 p-lg-3 rounded-4">
                     <div class="card-body">

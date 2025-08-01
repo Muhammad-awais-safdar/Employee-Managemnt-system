@@ -10,7 +10,7 @@
                             <i class="ti ti-arrow-left me-1"></i>Back to Companies
                         </a>
                     @else
-                        <a href="{{ route('admin.dashboard') }}" class="text-decoration-none">
+                        <a href="{{ route('Admin.dashboard') }}" class="text-decoration-none">
                             <i class="ti ti-arrow-left me-1"></i>Back to Dashboard
                         </a>
                     @endif
@@ -140,7 +140,7 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">Status <span class="text-danger">*</span></label>
-                                            <select name="status" id="status" class="form-select" required>
+                                            <select name="status"  class="form-select" required>
                                                 <option value="active" {{ $company->status == 'active' ? 'selected' : '' }}>Active</option>
                                                 <option value="inactive" {{ $company->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
                                             </select>
@@ -264,7 +264,7 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    preview.innerHTML = `<img src="${e.target.result}" class="img-fluid rounded" style="max-width: 100%; max-height: 100px;">`;
+                    preview.innerHTML = `<img src={{ asset('${e.target.result}') }} class="img-fluid rounded" style="max-width: 100%; max-height: 100px;">`;
                 };
                 reader.readAsDataURL(file);
                 

@@ -84,8 +84,7 @@ class CompanyController extends Controller
 
             $company = Company::create($validated);
             // Assign the company to the admin user
-            $adminUser->ownedCompany()->associate($company);
-            $adminUser->save(); 
+            $adminUser->update(['company_id' => $company->id]); 
             if ($request->ajax()) {
                 return response()->json([
                     'success' => true,

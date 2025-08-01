@@ -5,7 +5,10 @@ namespace App\Http\Controllers\UserManagement;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\Department;
+use App\Models\EmployeeTaxInfo;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends BaseUserController
 {
@@ -52,9 +55,19 @@ class AdminController extends BaseUserController
         $roles = $this->getAllowedRoles();
         $company = $this->user->company ?? (object)['company_name' => 'Unknown Company'];
         
+        // Get departments for this company
+        $departments = Department::forCompany($this->user->company_id)->active()->get();
+        
+        // Get team leads for this company
+        $teamLeads = User::role('TeamLead')
+            ->where('company_id', $this->user->company_id)
+            ->pluck('name', 'id');
+        
         return view($this->viewPrefix . 'create', [
             'roles' => $roles,
-            'company' => $company
+            'company' => $company,
+            'departments' => $departments,
+            'teamLeads' => $teamLeads
         ]);
     }
     
@@ -71,6 +84,8 @@ class AdminController extends BaseUserController
         ]);
 
         try {
+            DB::beginTransaction();
+            
             // Log before creating user
             \Log::debug('Attempting to create user', [
                 'name' => $request->name,
@@ -83,6 +98,23 @@ class AdminController extends BaseUserController
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'company_id' => $this->user->company_id,
+                
+                // Employee Information
+                'employee_id' => $request->employee_id,
+                'salary' => $request->salary,
+                'date_of_joining' => $request->date_of_joining,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'date_of_birth' => $request->date_of_birth,
+                'gender' => $request->gender,
+                'marital_status' => $request->marital_status,
+                'qualification' => $request->qualification,
+                'experience_years' => $request->experience_years,
+                'skills' => $request->skills,
+                'department_id' => $request->department_id,
+                'team_lead_id' => $request->team_lead_id,
+                'emergency_contact_name' => $request->emergency_contact_name,
+                'emergency_contact_phone' => $request->emergency_contact_phone,
             ]);
 
             \Log::info('User created successfully', [
@@ -123,6 +155,25 @@ class AdminController extends BaseUserController
                 throw new \Exception('A role must be selected');
             }
             
+            // Create employee tax information
+            EmployeeTaxInfo::create([
+                'user_id' => $user->id,
+                'company_id' => $user->company_id,
+                'filing_status' => $request->filing_status ?? 'single',
+                'allowances' => $request->allowances ?? 0,
+                'additional_withholding' => $request->additional_withholding ?? 0.00,
+                'exempt_from_federal' => $request->boolean('exempt_from_federal'),
+                'exempt_from_state' => $request->boolean('exempt_from_state'),
+                'exempt_from_local' => $request->boolean('exempt_from_local'),
+                'health_insurance_premium' => $request->health_insurance_premium ?? 0.00,
+                'retirement_contribution_percent' => $request->retirement_contribution_percent ?? 0.00,
+                'tax_year' => date('Y'),
+                'is_active' => true,
+                'effective_date' => now()
+            ]);
+            
+            DB::commit();
+            
             \Log::info('Admin user creation completed', [
                 'user_id' => $user->id,
                 'admin_id' => $this->user->id
@@ -135,9 +186,11 @@ class AdminController extends BaseUserController
             ]);
             
             return redirect()->route('Admin.users.index')
-                ->with('success', 'User created successfully');
+                ->with('success', 'Employee created successfully with salary and tax information');
                 
         } catch (\Exception $e) {
+            DB::rollBack();
+            
             // Log the error with stack trace
             \Log::error('Error creating user', [
                 'error' => $e->getMessage(),
