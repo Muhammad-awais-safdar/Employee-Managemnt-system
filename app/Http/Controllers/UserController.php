@@ -33,6 +33,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'company_id' => $request->company_id,
+            'department_id' => $request->department_id,
         ]);
 
         $user->syncRoles($request->roles);
@@ -62,6 +63,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'company_id' => $request->company_id,
+            'department_id' => $request->department_id,
         ];
 
         if ($request->filled('password')) {

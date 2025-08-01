@@ -127,7 +127,7 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">Status <span class="text-danger">*</span></label>
-                                            <select name="status" id="status" class="form-select" required>
+                                            <select name="status" class="form-select" required>
                                                 <option value="active" selected>Active</option>
                                                 <option value="inactive">Inactive</option>
                                             </select>

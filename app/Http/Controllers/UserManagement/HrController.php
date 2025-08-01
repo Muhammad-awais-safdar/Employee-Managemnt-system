@@ -5,7 +5,10 @@ namespace App\Http\Controllers\UserManagement;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\Department;
+use App\Models\EmployeeTaxInfo;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class HrController extends BaseUserController
 {
@@ -56,10 +59,14 @@ class HrController extends BaseUserController
             
         $company = $this->user->company ?? (object)['company_name' => 'Unknown Company'];
         
+        // Get departments for this company
+        $departments = Department::forCompany($this->user->company_id)->active()->get();
+        
         return view($this->viewPrefix . 'create', [
             'roles' => $roles,
             'teamLeads' => $teamLeads,
-            'company' => $company
+            'company' => $company,
+            'departments' => $departments
         ]);
     }
     
@@ -76,12 +83,30 @@ class HrController extends BaseUserController
         ]);
 
         try {
+            DB::beginTransaction();
+            
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'company_id' => $this->user->company_id,
                 'team_lead_id' => $request->team_lead_id,
+                
+                // Employee Information
+                'employee_id' => $request->employee_id,
+                'salary' => $request->salary,
+                'date_of_joining' => $request->date_of_joining,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'date_of_birth' => $request->date_of_birth,
+                'gender' => $request->gender,
+                'marital_status' => $request->marital_status,
+                'qualification' => $request->qualification,
+                'experience_years' => $request->experience_years,
+                'skills' => $request->skills,
+                'department_id' => $request->department_id,
+                'emergency_contact_name' => $request->emergency_contact_name,
+                'emergency_contact_phone' => $request->emergency_contact_phone,
             ]);
             
             \Log::info('HR user created successfully', [
@@ -116,15 +141,36 @@ class HrController extends BaseUserController
                 throw new \Exception('A role must be selected');
             }
             
+            // Create employee tax information
+            EmployeeTaxInfo::create([
+                'user_id' => $user->id,
+                'company_id' => $user->company_id,
+                'filing_status' => $request->filing_status ?? 'single',
+                'allowances' => $request->allowances ?? 0,
+                'additional_withholding' => $request->additional_withholding ?? 0.00,
+                'exempt_from_federal' => $request->boolean('exempt_from_federal'),
+                'exempt_from_state' => $request->boolean('exempt_from_state'),
+                'exempt_from_local' => $request->boolean('exempt_from_local'),
+                'health_insurance_premium' => $request->health_insurance_premium ?? 0.00,
+                'retirement_contribution_percent' => $request->retirement_contribution_percent ?? 0.00,
+                'tax_year' => date('Y'),
+                'is_active' => true,
+                'effective_date' => now()
+            ]);
+            
+            DB::commit();
+            
             \Log::info('HR user creation completed', [
                 'user_id' => $user->id,
                 'hr_id' => $this->user->id
             ]);
             
             return redirect()->route('HR.users.index')
-                ->with('success', 'User created successfully');
+                ->with('success', 'Employee created successfully with salary and tax information');
                 
         } catch (\Exception $e) {
+            DB::rollBack();
+            
             \Log::error('Error creating user by HR', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),

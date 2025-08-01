@@ -42,6 +42,30 @@ class Company extends Model
     }
 
     /**
+     * Get the working hours settings for this company.
+     */
+    public function workingHoursSettings()
+    {
+        return $this->hasMany(WorkingHoursSettings::class);
+    }
+
+    /**
+     * Get the active working hours settings for this company.
+     */
+    public function activeWorkingHours()
+    {
+        return $this->hasOne(WorkingHoursSettings::class)->where('is_active', true);
+    }
+
+    /**
+     * Get the departments belonging to this company.
+     */
+    public function departments()
+    {
+        return $this->hasMany(Department::class);
+    }
+
+    /**
      * Accessor for capitalized company name.
      */
     public function getCompanyNameAttribute($value)

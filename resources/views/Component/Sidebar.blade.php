@@ -3,19 +3,44 @@
       <!-- Start Logo -->
       <div class="sidebar-logo">
           <div>
+              @php
+                  $user = Auth::user();
+                  $companyLogo = null;
+                  $companyName = 'Employee Management System';
+                  $dashboardRoute = '#';
+                  
+                  if ($user && $user->company && $user->company->logo) {
+                      $companyLogo = asset('storage/' . $user->company->logo);
+                      $companyName = $user->company->name;
+                  }
+                  
+                  // Set dashboard route based on user role
+                  if ($user) {
+                      $role = $user->getRoleNames()->first();
+                      if ($role && Route::has($role . '.dashboard')) {
+                          $dashboardRoute = route($role . '.dashboard');
+                      }
+                  }
+                  
+                  // Fallback logos
+                  $defaultLogo = asset('assets/img/logo.svg');
+                  $defaultSmallLogo = asset('assets/img/logo-small.svg');
+                  $defaultDarkLogo = asset('assets/img/logo-white.svg');
+              @endphp
+
               <!-- Logo Normal -->
-              <a href={{ asset('index.html') }} class="logo logo-normal">
-                  <img src={{ asset('assets/img/logo.svg') }} alt="Logo">
+              <a href="{{ $dashboardRoute }}" class="logo logo-normal">
+                  <img src="{{ $companyLogo ?: $defaultLogo }}" alt="{{ $companyName }} Logo" style="max-height: 45px; width: auto;">
               </a>
 
               <!-- Logo Small -->
-              <a href={{ asset('index.html') }} class="logo-small">
-                  <img src={{ asset('assets/img/logo-small.svg') }} alt="Logo">
+              <a href="{{ $dashboardRoute }}" class="logo-small">
+                  <img src="{{ $companyLogo ?: $defaultSmallLogo }}" alt="{{ $companyName }} Logo" style="max-height: 35px; width: auto;">
               </a>
 
               <!-- Logo Dark -->
-              <a href={{ asset('index.html') }} class="dark-logo">
-                  <img src={{ asset('assets/img/logo-white.svg') }} alt="Logo">
+              <a href="{{ $dashboardRoute }}" class="dark-logo">
+                  <img src="{{ $companyLogo ?: $defaultDarkLogo }}" alt="{{ $companyName }} Logo" style="max-height: 45px; width: auto;">
               </a>
           </div>
           <button class="sidenav-toggle-btn btn p-0" id="toggle_btn">
@@ -95,6 +120,46 @@
                                   </a>
                               </li>
                           @endif
+                          @if (Auth::user()->hasRole('superAdmin') || Auth::user()->hasRole('Admin'))
+                              <li>
+                                  <a href="{{ route('Admin.departments.index') }}">
+                                      <i class="ti ti-layout-grid"></i><span>Departments</span>
+                                  </a>
+                              </li>
+                              <li>
+                              <a href={{ route('Admin.working-hours.index') }}>
+                                  <i class="ti ti-settings"></i><span>Settings</span>
+                              </a>
+                          </li>
+                          @endif
+                          @if (Auth::user()->hasRole('HR'))
+                              <li>
+                                  <a href="{{ route('HR.departments.assignments') }}">
+                                      <i class="ti ti-users-group"></i><span>Department Assignments</span>
+                                  </a>
+                              </li>
+                          @endif
+                          @if (Auth::user()->hasAnyRole(['superAdmin', 'Admin', 'HR']))
+                              <li>
+                                  @php
+                                      $role = auth()->check() ? Auth::user()->getRoleNames()->first() : null;
+                                      $notificationRoute = $role && Route::has($role . '.notifications.index') 
+                                          ? route($role . '.notifications.index') 
+                                          : route('notifications.index');
+                                      
+                                      // Get unread notification count for current user
+                                      $unreadCount = auth()->user()->unreadNotifications()
+                                          ->where('type', 'App\\Notifications\\LeaveApplicationNotification')
+                                          ->count();
+                                  @endphp
+                                  <a href="{{ $notificationRoute }}">
+                                      <i class="ti ti-bell"></i><span>Notifications</span>
+                                      @if($unreadCount > 0)
+                                          <span class="badge bg-danger ms-2 rounded-pill">{{ $unreadCount > 99 ? '99+' : $unreadCount }}</span>
+                                      @endif
+                                  </a>
+                              </li>
+                          @endif
                           <li>
                               <a href={{ asset('employees.html') }}>
                                   <i class="ti ti-users-group"></i><span>Employee</span>
@@ -114,7 +179,24 @@
                               </a>
                           </li>
                           <li>
-                              <a href={{ asset('leaves.html') }}>
+                              @php
+                                  $role = auth()->check() ? Auth::user()->getRoleNames()->first() : null;
+                                  $attendanceRoute = $role && Route::has($role . '.attendance.index') 
+                                      ? route($role . '.attendance.index') 
+                                      : '#';
+                              @endphp
+                              <a href="{{ $attendanceRoute }}">
+                                  <i class="ti ti-clock"></i><span>Attendance</span>
+                              </a>
+                          </li>
+                          <li>
+                              @php
+                                  $role = auth()->check() ? Auth::user()->getRoleNames()->first() : null;
+                                  $leaveRoute = $role && Route::has($role . '.leave.index') 
+                                      ? route($role . '.leave.index') 
+                                      : '#';
+                              @endphp
+                              <a href="{{ $leaveRoute }}">
                                   <i class="ti ti-calendar-star"></i><span>Leaves</span>
                               </a>
                           </li>
@@ -148,6 +230,17 @@
                   <li class="menu-title"><span>Settings</span></li>
                   <li>
                       <ul>
+                          <li>
+                              @php
+                                  $role = auth()->check() ? Auth::user()->getRoleNames()->first() : null;
+                                  $profileRoute = $role && Route::has($role . '.profile.index') 
+                                      ? route($role . '.profile.index') 
+                                      : route('profile.index');
+                              @endphp
+                              <a href="{{ $profileRoute }}">
+                                  <i class="ti ti-user-circle"></i><span>My Profile</span>
+                              </a>
+                          </li>
                           <li>
                               <a href={{ asset('settings.html') }}>
                                   <i class="ti ti-settings"></i><span>Settings</span>

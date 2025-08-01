@@ -29,10 +29,12 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <div>
-                                                <div class="avatar avtar-lg bg-teal mb-2"><img src={{ asset('assets/img/icons/dashboard-card-icon-01.svg') }} class="w-auto h-auto" alt="Icon"></div>
-                                                <h6 class="fs-14 fw-semibold mb-0">Employees</h6>
+                                                <div class="avatar avtar-lg bg-primary mb-2">
+                                                    <i class="ti ti-users fs-24"></i>
+                                                </div>
+                                                <h6 class="fs-14 fw-semibold mb-1">Total Employees</h6>
+                                                <h4 class="fw-bold mb-0">{{ $financialStats['total_employees'] ?? 0 }}</h4>
                                             </div>
-                                            <div id="circle_chart_1"></div>
                                         </div>
                                     </div><!-- end card body -->
                                 </div><!-- end card -->
@@ -43,10 +45,12 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <div>
-                                                <div class="avatar avtar-lg bg-warning mb-2"><img src={{ asset('assets/img/icons/dashboard-card-icon-01.svg') }} class="w-auto h-auto" alt="Icon"></div>
-                                                <h6 class="fs-14 fw-semibold mb-0">Companies</h6>
+                                                <div class="avatar avtar-lg bg-success mb-2">
+                                                    <i class="ti ti-currency-dollar fs-24"></i>
+                                                </div>
+                                                <h6 class="fs-14 fw-semibold mb-1">Monthly Payroll</h6>
+                                                <h4 class="fw-bold mb-0">₹{{ number_format($financialStats['monthly_payroll'] ?? 0) }}</h4>
                                             </div>
-                                            <div id="circle_chart_2"></div>
                                         </div>
                                     </div><!-- end card body -->
                                 </div><!-- end card -->
@@ -57,10 +61,12 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <div>
-                                                <div class="avatar avtar-lg bg-orange mb-2"><img src={{ asset('assets/img/icons/dashboard-card-icon-01.svg') }} class="w-auto h-auto" alt="Icon"></div>
-                                                <h6 class="fs-14 fw-semibold mb-0">Leaves</h6>
+                                                <div class="avatar avtar-lg bg-warning mb-2">
+                                                    <i class="ti ti-receipt fs-24"></i>
+                                                </div>
+                                                <h6 class="fs-14 fw-semibold mb-1">Monthly Expenses</h6>
+                                                <h4 class="fw-bold mb-0">₹{{ number_format($financialStats['monthly_expenses'] ?? 0) }}</h4>
                                             </div>
-                                            <div id="circle_chart_3"></div>
                                         </div>
                                     </div><!-- end card body -->
                                 </div><!-- end card -->
@@ -71,10 +77,12 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <div>
-                                                <div class="avatar avtar-lg bg-teal mb-2"><img src={{ asset('assets/img/icons/dashboard-card-icon-01.svg') }} class="w-auto h-auto" alt="Icon"></div>
-                                                <h6 class="fs-14 fw-semibold mb-0">Salary</h6>
+                                                <div class="avatar avtar-lg bg-danger mb-2">
+                                                    <i class="ti ti-clock-pause fs-24"></i>
+                                                </div>
+                                                <h6 class="fs-14 fw-semibold mb-1">Pending Payments</h6>
+                                                <h4 class="fw-bold mb-0">{{ $financialStats['pending_payments'] ?? 0 }}</h4>
                                             </div>
-                                            <div id="circle_chart_7"></div>
                                         </div>
                                     </div><!-- end card body -->
                                 </div><!-- end card -->
@@ -82,6 +90,49 @@
 
                         </div>
                         <!-- end row -->
+
+                        <!-- Finance Quick Actions -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="fw-bold mb-0">Quick Actions</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row g-3">
+                                            <div class="col-md-3 col-sm-6">
+                                                <a href="{{ route('Finance.salaries.index') }}" class="quick-action-card p-3 text-center border rounded h-100 d-block text-decoration-none">
+                                                    <i class="ti ti-currency-dollar fs-24 text-primary mb-2"></i>
+                                                    <h6 class="mb-1">Manage Salaries</h6>
+                                                    <small class="text-muted">Set and update employee salaries</small>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <a href="{{ route('Finance.payroll.index') }}" class="quick-action-card p-3 text-center border rounded h-100 d-block text-decoration-none">
+                                                    <i class="ti ti-calculator fs-24 text-success mb-2"></i>
+                                                    <h6 class="mb-1">Process Payroll</h6>
+                                                    <small class="text-muted">Calculate and process employee salaries</small>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <a href="{{ route('Finance.expenses.index') }}" class="quick-action-card p-3 text-center border rounded h-100 d-block text-decoration-none">
+                                                    <i class="ti ti-receipt fs-24 text-warning mb-2"></i>
+                                                    <h6 class="mb-1">Manage Expenses</h6>
+                                                    <small class="text-muted">Review and approve expense claims</small>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <a href="{{ route('Finance.reports.index') }}" class="quick-action-card p-3 text-center border rounded h-100 d-block text-decoration-none">
+                                                    <i class="ti ti-chart-bar fs-24 text-info mb-2"></i>
+                                                    <h6 class="mb-1">Financial Reports</h6>
+                                                    <small class="text-muted">Generate financial reports and analytics</small>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- start row -->
                         <div class="row">
