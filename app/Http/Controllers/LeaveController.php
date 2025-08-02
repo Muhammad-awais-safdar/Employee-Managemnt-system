@@ -6,11 +6,9 @@ use App\Models\Leave;
 use App\Models\LeaveType;
 use App\Models\LeaveBalance;
 use App\Models\User;
-use App\Notifications\LeaveApplicationNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Notification;
 use Carbon\Carbon;
 
 class LeaveController extends Controller
@@ -218,8 +216,6 @@ class LeaveController extends Controller
             $leaveBalance = LeaveBalance::getOrCreateBalance($user->id, $request->leave_type_id);
             $leaveBalance->addPendingLeave($leave->total_days, $leave->id);
             
-            // Send notification to HR/Admin
-            $this->sendLeaveApplicationNotification($leave, 'applied');
             
             DB::commit();
             
@@ -388,8 +384,6 @@ class LeaveController extends Controller
             
             $leaveBalance->save();
             
-            // Send notification
-            $this->sendLeaveApplicationNotification($leave, $status);
             
             DB::commit();
             
@@ -443,8 +437,6 @@ class LeaveController extends Controller
                 $leaveBalance->removePendingLeave($leave->total_days, $leave->id);
             }
             
-            // Send notification to employee
-            $this->sendLeaveApplicationNotification($leave, $leave->status);
             
             DB::commit();
             
@@ -560,32 +552,6 @@ class LeaveController extends Controller
         ]);
     }
 
-    /**
-     * Send leave application notification to appropriate users.
-     */
-    private function sendLeaveApplicationNotification(Leave $leave, string $action): void
-    {
-        try {
-            $notification = new LeaveApplicationNotification($leave, $action);
-            
-            if ($action === 'applied') {
-                // Notify HR and Admin users when employee applies for leave
-                $recipients = User::where('company_id', $leave->company_id)
-                    ->whereHas('roles', function($query) {
-                        $query->whereIn('name', ['HR', 'Admin']);
-                    })
-                    ->get();
-                    
-                Notification::send($recipients, $notification);
-            } else {
-                // Notify the employee when their leave is approved/rejected/cancelled
-                $leave->user->notify($notification);
-            }
-            
-        } catch (\Exception $e) {
-            \Log::error('Failed to send leave notification: ' . $e->getMessage());
-        }
-    }
 
     /**
      * Bulk approve leave applications.
@@ -630,8 +596,6 @@ class LeaveController extends Controller
                         $leaveBalance = LeaveBalance::getOrCreateBalance($leave->user_id, $leave->leave_type_id);
                         $leaveBalance->useLeave($leave->total_days, $leave->id);
                         
-                        // Send notification
-                        $this->sendLeaveApplicationNotification($leave, 'approved');
                         
                         $processed++;
                     } catch (\Exception $e) {
@@ -702,8 +666,6 @@ class LeaveController extends Controller
                         $leaveBalance = LeaveBalance::getOrCreateBalance($leave->user_id, $leave->leave_type_id);
                         $leaveBalance->removePendingLeave($leave->total_days, $leave->id);
                         
-                        // Send notification
-                        $this->sendLeaveApplicationNotification($leave, 'rejected');
                         
                         $processed++;
                     } catch (\Exception $e) {

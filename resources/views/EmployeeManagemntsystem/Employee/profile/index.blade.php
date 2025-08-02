@@ -346,7 +346,7 @@
                         <div class="mb-3">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="emailNotifications" 
-                                       name="email_notifications" {{ ($user->settings['email_notifications'] ?? true) ? 'checked' : '' }}>
+                                       name="email_settings" {{ ($user->settings['email_settings'] ?? true) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="emailNotifications">
                                     Email Notifications
                                 </label>
@@ -355,7 +355,7 @@
                         <div class="mb-3">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="smsNotifications" 
-                                       name="sms_notifications" {{ ($user->settings['sms_notifications'] ?? false) ? 'checked' : '' }}>
+                                       name="sms_settings" {{ ($user->settings['sms_settings'] ?? false) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="smsNotifications">
                                     SMS Notifications
                                 </label>

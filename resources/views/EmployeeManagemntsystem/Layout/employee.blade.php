@@ -2,7 +2,6 @@
 <html lang="en">
 
 
-<!-- Mirrored from dleohr.dreamstechnologies.com/html/template/employee-dashboard-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Jul 2025 08:12:49 GMT -->
 
 <head>
 
@@ -15,7 +14,7 @@
         content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
     <title> @section('title') | Dleohr</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Dreams Technologies">
+    <meta name="author" content="Muhammad Awais">
 
 	<meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
@@ -73,7 +72,7 @@
                     @endphp
 
                     <!-- Logo -->
-                    <a href="{{ $dashboardRoute }}" class="logo">
+                    <a href="#{{ $dashboardRoute }}" class="logo">
 
                         <!-- Logo Normal -->
                         <span class="logo-light">
@@ -94,7 +93,7 @@
                     </a>
 
                     <!-- Sidebar Mobile Button -->
-                    <a id="mobile_btn" class="mobile-btn" href="#sidebar">
+                    <a id="mobile_btn" class="mobile-btn" href="##sidebar">
                         <i class="ti ti-menu-deep fs-24"></i>
                     </a>
 
@@ -137,25 +136,25 @@
                             <div class="dropdown-menu dropdown-menu-end">
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">
+                                <a href="#javascript:void(0);" class="dropdown-item">
                                     <img src={{ asset('assets/img/flags/us.svg') }} alt="" class="me-1"
                                         height="16"> <span class="align-middle">English</span>
                                 </a>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">
+                                <a href="#javascript:void(0);" class="dropdown-item">
                                     <img src={{ asset('assets/img/flags/de.svg') }} alt="" class="me-1"
                                         height="16"> <span class="align-middle">German</span>
                                 </a>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">
+                                <a href="#javascript:void(0);" class="dropdown-item">
                                     <img src={{ asset('assets/img/flags/fr.svg') }} alt="" class="me-1"
                                         height="16"> <span class="align-middle">French</span>
                                 </a>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">
+                                <a href="#javascript:void(0);" class="dropdown-item">
                                     <img src={{ asset('assets/img/flags/ae.svg') }} alt="" class="me-1"
                                         height="16"> <span class="align-middle">Arabic</span>
                                 </a>
@@ -167,7 +166,7 @@
                     <!-- Full Screen -->
                     <div class="header-item">
                         <div class="me-2">
-                            <a href="javascript:void(0);" class="btn topbar-link" id="btnFullscreen"><i
+                            <a href="#javascript:void(0);" class="btn topbar-link" id="btnFullscreen"><i
                                     class="ti ti-maximize fs-16"></i></a>
                         </div>
                     </div>
@@ -175,189 +174,16 @@
                     <!-- Calendar -->
                     <div class="header-item">
                         <div class="me-2">
-                            <a href="report-calendar.html" class="btn topbar-link"><i
+                            <a href="##" class="btn topbar-link"><i
                                     class="ti ti-calendar-star fs-16"></i></a>
                         </div>
                     </div>
 
-                    <!-- Notification Dropdown -->
-                    <div class="header-item">
-                        <div class="dropdown me-2">
-
-                            <button class="topbar-link btn btn-icon topbar-link dropdown-toggle drop-arrow-none"
-                                data-bs-toggle="dropdown" data-bs-offset="0,24" type="button" aria-haspopup="false"
-                                aria-expanded="false">
-                                <i class="ti ti-bell fs-16 animate-ring fs-16"></i>
-                                <span class="notification-badge"></span>
-                            </button>
-
-                            <div class="dropdown-menu p-0 dropdown-menu-end dropdown-menu-lg"
-                                style="min-height: 300px;">
-
-                                <div class="p-2 border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <h6 class="m-0 fs-16 fw-semibold"> Notifications</h6>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Notification Body -->
-                                <div class="notification-body position-relative z-2 rounded-0" data-simplebar>
-
-                                    <!-- Item-->
-                                    <div class="dropdown-item notification-item py-3 text-wrap border-bottom"
-                                        id="notification-1">
-                                        <div class="d-flex">
-                                            <div class="me-2 position-relative flex-shrink-0">
-                                                <img src={{ asset('assets/img/users/avatar-2.jpg') }}
-                                                    class="avatar-md rounded-circle" alt="">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <p class="mb-0 fw-medium text-dark">Daniel Martinz</p>
-                                                <p class="mb-1 text-wrap">
-                                                    <span class="fw-medium text-dark">Daniel Martinz</span> equested
-                                                    Sick Leave from May 28 2025 to May 29 2025
-                                                </p>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="fs-12"><i class="ti ti-clock me-1"></i>4 min
-                                                        ago</span>
-                                                    <div
-                                                        class="notification-action d-flex align-items-center float-end gap-2">
-                                                        <a href="javascript:void(0);"
-                                                            class="notification-read rounded-circle bg-danger"
-                                                            data-bs-toggle="tooltip" title=""
-                                                            data-bs-original-title="Make as Read"
-                                                            aria-label="Make as Read"></a>
-                                                        <button class="btn rounded-circle p-0"
-                                                            data-dismissible="#notification-1">
-                                                            <i class="ti ti-x"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Item-->
-                                    <div class="dropdown-item notification-item py-3 text-wrap border-bottom"
-                                        id="notification-2">
-                                        <div class="d-flex">
-                                            <div class="me-2 position-relative flex-shrink-0">
-                                                <img src={{ asset('assets/img/users/user-02.jpg') }}
-                                                    class="avatar-md rounded-circle" alt="">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <p class="mb-0 fw-medium text-dark">Emily Clark</p>
-                                                <p class="mb-1 text-wrap">
-                                                    Leave for <span class="fw-medium text-dark"> Emily Clark</span> has
-                                                    been approved.
-                                                </p>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="fs-12"><i class="ti ti-clock me-1"></i>8 min
-                                                        ago</span>
-                                                    <div
-                                                        class="notification-action d-flex align-items-center float-end gap-2">
-                                                        <a href="javascript:void(0);"
-                                                            class="notification-read rounded-circle bg-danger"
-                                                            data-bs-toggle="tooltip" title=""
-                                                            data-bs-original-title="Make as Read"
-                                                            aria-label="Make as Read"></a>
-                                                        <button class="btn rounded-circle p-0"
-                                                            data-dismissible="#notification-2">
-                                                            <i class="ti ti-x"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Item-->
-                                    <div class="dropdown-item notification-item py-3 text-wrap border-bottom"
-                                        id="notification-3">
-                                        <div class="d-flex">
-                                            <div class="me-2 position-relative flex-shrink-0">
-                                                <img src={{ asset('assets/img/users/user-04.jpg') }}
-                                                    class="avatar-md rounded-circle" alt="">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <p class="mb-0 fw-medium text-dark"> David</p>
-                                                <p class="mb-1 text-wrap">
-                                                    Leave request from <span class="fw-medium text-dark">David
-                                                        Anderson</span>has been rejected.
-                                                </p>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="fs-12"><i class="ti ti-clock me-1"></i>15 min
-                                                        ago</span>
-                                                    <div
-                                                        class="notification-action d-flex align-items-center float-end gap-2">
-                                                        <a href="javascript:void(0);"
-                                                            class="notification-read rounded-circle bg-danger"
-                                                            data-bs-toggle="tooltip" title=""
-                                                            data-bs-original-title="Make as Read"
-                                                            aria-label="Make as Read"></a>
-                                                        <button class="btn rounded-circle p-0"
-                                                            data-dismissible="#notification-3">
-                                                            <i class="ti ti-x"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Item-->
-                                    <div class="dropdown-item notification-item py-3 text-wrap" id="notification-4">
-                                        <div class="d-flex">
-                                            <div class="me-2 position-relative flex-shrink-0">
-                                                <img src={{ asset('assets/img/users/user-24.jpg') }}
-                                                    class="avatar-md rounded-circle" alt="">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <p class="mb-0 fw-medium text-dark">Ann McClure</p>
-                                                <p class="mb-1 text-wrap">
-                                                    cancelled her appointment scheduled for <span
-                                                        class="fw-medium text-dark">February 5, 2024</span>
-                                                </p>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="fs-12"><i class="ti ti-clock me-1"></i>20 min
-                                                        ago</span>
-                                                    <div
-                                                        class="notification-action d-flex align-items-center float-end gap-2">
-                                                        <a href="javascript:void(0);"
-                                                            class="notification-read rounded-circle bg-danger"
-                                                            data-bs-toggle="tooltip" title=""
-                                                            data-bs-original-title="Make as Read"
-                                                            aria-label="Make as Read"></a>
-                                                        <button class="btn rounded-circle p-0"
-                                                            data-dismissible="#notification-4">
-                                                            <i class="ti ti-x"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- View All-->
-                                <div class="p-2 rounded-bottom border-top text-center">
-                                    <a href="notifications.html"
-                                        class="text-center text-decoration-underline fs-14 mb-0">
-                                        View All Notifications
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Settings -->
                     <div class="header-item">
                         <div>
-                            <a href="settings.html" class="btn topbar-link"><i class="ti ti-settings fs-16"></i></a>
+                            <a href="##" class="btn topbar-link"><i class="ti ti-settings fs-16"></i></a>
                         </div>
                     </div>
 
@@ -372,7 +198,7 @@
                 <div class="row flex-fill align-items-center">
                     <div class="col-lg-4">
                         <div class="navbar-logo">
-                            <a href="{{ route('Employee.dashboard') }}">
+                            <a href="#{{ route('Employee.dashboard') }}">
                                 <img src="{{ (Auth::user() && Auth::user()->company && Auth::user()->company->logo) ? asset('storage/' . Auth::user()->company->logo) : asset('assets/img/logo-white.svg') }}" 
                                      alt="{{ (Auth::user() && Auth::user()->company) ? Auth::user()->company->name : 'Employee Management System' }}" 
                                      style="max-height: 45px; width: auto;">
@@ -405,13 +231,13 @@
 
                             <div class="header-item">
                                 <div class="me-2">
-                                    <a href="report-calendar.html"
+                                    <a href="##"
                                         class="btn topbar-link rounded-circle border-0 bg-white"><i
                                             class="ti ti-calendar-star fs-16"></i></a>
                                 </div>
                             </div>
                             <div class="dropdown profile-dropdown d-flex align-items-center justify-content-center">
-                                <a href="javascript:void(0);"
+                                <a href="#javascript:void(0);"
                                     class="topbar-link dropdown-toggle drop-arrow-none position-relative"
                                     data-bs-toggle="dropdown" data-bs-offset="0,22" aria-haspopup="false"
                                     aria-expanded="false">
@@ -435,7 +261,7 @@
                                     </div>
 
                                     <!-- Item-->
-                                    <a href="settings.html" class="dropdown-item">
+                                    <a href="##" class="dropdown-item">
                                         <i class="ti ti-settings me-1 align-middle"></i>
                                         <span class="align-middle">Settings</span>
                                     </a>
@@ -499,17 +325,17 @@
                     @endphp
 
                     <!-- Logo Normal -->
-                    <a href="{{ route('Employee.dashboard') }}" class="logo logo-normal">
+                    <a href="#{{ route('Employee.dashboard') }}" class="logo logo-normal">
                         <img src="{{ $employeeCompanyLogo ?: asset('assets/img/logo.svg') }}" alt="{{ $employeeCompanyName }} Logo" style="max-height: 45px; width: auto;">
                     </a>
 
                     <!-- Logo Small -->
-                    <a href="{{ route('Employee.dashboard') }}" class="logo-small">
+                    <a href="#{{ route('Employee.dashboard') }}" class="logo-small">
                         <img src="{{ $employeeCompanyLogo ?: asset('assets/img/logo-small.svg') }}" alt="{{ $employeeCompanyName }} Logo" style="max-height: 35px; width: auto;">
                     </a>
 
                     <!-- Logo Dark -->
-                    <a href="{{ route('Employee.dashboard') }}" class="dark-logo">
+                    <a href="#{{ route('Employee.dashboard') }}" class="dark-logo">
                         <img src="{{ $employeeCompanyLogo ?: asset('assets/img/logo-white.svg') }}" alt="{{ $employeeCompanyName }} Logo" style="max-height: 45px; width: auto;">
                     </a>
                 </div>
@@ -532,51 +358,51 @@
                         <li>
                             <ul>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);" class="active subdrop">
+                                    <a href="#javascript:void(0);" class="active subdrop">
                                         <i class="ti ti-layout-dashboard"></i><span>Dashboard</span>
                                         <span class="menu-arrow"></span>
                                     </a>
                                     <ul>
-                                        <li><a href="index.html">Dashboard 1</a></li>
-                                        <li><a href="index-2.html">Dashboard 2</a></li>
-                                        <li><a href="index-3.html" class="active">Dashboard 3</a></li>
-                                        <li><a href="index-4.html">Dashboard 4</a></li>
+                                        <li><a href="#{{ route('dashboard') }}">Dashboard 1</a></li>
+                                        <li><a href="##">Dashboard 2</a></li>
+                                        <li><a href="##" class="active">Dashboard 3</a></li>
+                                        <li><a href="##">Dashboard 4</a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">
+                                    <a href="#javascript:void(0);">
                                         <i class="ti ti-apps"></i><span>Applications</span>
                                         <span class="menu-arrow"></span>
                                     </a>
                                     <ul>
-                                        <li><a href="chat.html">Chat</a></li>
+                                        <li><a href="#chat">Chat</a></li>
                                         <li class="submenu submenu-two">
-                                            <a href="#">Calls<span class="menu-arrow inside-submenu"></span></a>
+                                            <a href="##">Calls<span class="menu-arrow inside-submenu"></span></a>
                                             <ul>
-                                                <li><a href="voice-call.html">Voice Call</a></li>
-                                                <li><a href="video-call.html">Video Call</a></li>
-                                                <li><a href="outgoing-call.html">Outgoing Call</a></li>
-                                                <li><a href="incoming-call.html">Incoming Call</a></li>
-                                                <li><a href="call-history.html">Call History</a></li>
+                                                <li><a href="#voice-call">Voice Call</a></li>
+                                                <li><a href="#video-call">Video Call</a></li>
+                                                <li><a href="#outgoing-call">Outgoing Call</a></li>
+                                                <li><a href="#incoming-call">Incoming Call</a></li>
+                                                <li><a href="#call-history">Call History</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="calendar.html">Calendar</a></li>
-                                        <li><a href="contacts.html">Contacts</a></li>
-                                        <li><a href="email.html">Email</a></li>
+                                        <li><a href="#calendar">Calendar</a></li>
+                                        <li><a href="#contacts">Contacts</a></li>
+                                        <li><a href="#email">Email</a></li>
                                         <li class="submenu submenu-two">
-                                            <a href="#">Invoices<span
+                                            <a href="##">Invoices<span
                                                     class="menu-arrow inside-submenu"></span></a>
                                             <ul>
-                                                <li><a href="invoice.html">Invoices</a></li>
-                                                <li><a href="invoice-details.html">Invoice Details</a></li>
+                                                <li><a href="#invoice">Invoices</a></li>
+                                                <li><a href="#invoice-details">Invoice Details</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="todo.html">To Do</a></li>
-                                        <li><a href="notes.html">Notes</a></li>
-                                        <li><a href="kanban-view.html">Kanban Board</a></li>
-                                        <li><a href="file-manager.html">File Manager</a></li>
-                                        <li><a href="social-feed.html">Social Feed</a></li>
-                                        <li><a href="search-list.html">Search Result</a></li>
+                                        <li><a href="#todo">To Do</a></li>
+                                        <li><a href="#notes">Notes</a></li>
+                                        <li><a href="#kanban-view">Kanban Board</a></li>
+                                        <li><a href="#file-manager">File Manager</a></li>
+                                        <li><a href="#social-feed">Social Feed</a></li>
+                                        <li><a href="#search-list">Search Result</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -585,22 +411,22 @@
                         <li>
                             <ul>
                                 <li>
-                                    <a href="companies.html">
+                                    <a href="#companies">
                                         <i class="ti ti-building-community"></i><span>Companies</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="employees.html">
+                                    <a href="#employees">
                                         <i class="ti ti-users-group"></i><span>Employee</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="leaves.html">
+                                    <a href="#leaves">
                                         <i class="ti ti-calendar-star"></i><span>Leaves</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="reviews.html">
+                                    <a href="#reviews">
                                         <i class="ti ti-user-bolt"></i><span>Reviews</span>
                                     </a>
                                 </li>
@@ -610,17 +436,17 @@
                         <li>
                             <ul>
                                 <li>
-                                    <a href="report-calendar.html">
+                                    <a href="##">
                                         <i class="ti ti-calendar-event"></i><span>Calendar</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="team-report.html">
+                                    <a href="#team-report">
                                         <i class="ti ti-report"></i><span>Reports</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="manage.html">
+                                    <a href="#manage">
                                         <i class="ti ti-settings-2"></i><span>Manage</span>
                                     </a>
                                 </li>
@@ -630,7 +456,7 @@
                         <li>
                             <ul>
                                 <li>
-                                    <a href="settings.html">
+                                    <a href="##">
                                         <i class="ti ti-settings"></i><span>Settings</span>
                                     </a>
                                 </li>
@@ -640,48 +466,48 @@
                         <li>
                             <ul>
                                 <li>
-                                    <a href="login.html">
+                                    <a href="#login">
                                         <i class="ti ti-login"></i><span>Login</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="register.html">
+                                    <a href="#register">
                                         <i class="ti ti-report"></i><span>Register</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="forgot-password.html">
+                                    <a href="#forgot-password">
                                         <i class="ti ti-lock-exclamation"></i><span>Forgot Password</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="reset-password.html">
+                                    <a href="#reset-password">
                                         <i class="ti ti-restore"></i><span>Reset Password</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="email-verification.html">
+                                    <a href="#email-verification">
                                         <i class="ti ti-mail-check"></i><span>Email Verification</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="two-step-verification.html">
+                                    <a href="#two-step-verification">
                                         <i class="ti ti-discount-check"></i><span>2 Step Verification</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="lock-screen.html">
+                                    <a href="#lock-screen">
                                         <i class="ti ti-lock-square-rounded"></i><span>Lock Screen</span>
                                     </a>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">
+                                    <a href="#javascript:void(0);">
                                         <i class="ti ti-exclamation-mark-off"></i><span>Error Pages</span><span
                                             class="menu-arrow"></span>
                                     </a>
                                     <ul>
-                                        <li><a href="error-404.html">404 Error</a></li>
-                                        <li><a href="error-500.html">500 Error</a></li>
+                                        <li><a href="#error-404">404 Error</a></li>
+                                        <li><a href="#error-500">500 Error</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -690,132 +516,132 @@
                         <li>
                             <ul>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">
+                                    <a href="#javascript:void(0);">
                                         <i class="ti ti-chart-pie"></i><span>Base UI</span><span
                                             class="menu-arrow"></span>
                                     </a>
                                     <ul>
-                                        <li><a href="ui-accordion.html">Accordion</a></li>
-                                        <li><a href="ui-alerts.html">Alerts</a></li>
-                                        <li><a href="ui-avatar.html">Avatar</a></li>
-                                        <li><a href="ui-badges.html">Badges</a></li>
-                                        <li><a href="ui-breadcrumb.html">Breadcrumb</a></li>
-                                        <li><a href="ui-buttons.html">Buttons</a></li>
-                                        <li><a href="ui-buttons-group.html">Button Group</a></li>
-                                        <li><a href="ui-cards.html">Card</a></li>
-                                        <li><a href="ui-carousel.html">Carousel</a></li>
-                                        <li><a href="ui-collapse.html">Collapse</a></li>
-                                        <li><a href="ui-dropdowns.html">Dropdowns</a></li>
-                                        <li><a href="ui-ratio.html">Ratio</a></li>
-                                        <li><a href="ui-grid.html">Grid</a></li>
-                                        <li><a href="ui-images.html">Images</a></li>
-                                        <li><a href="ui-links.html">Links</a></li>
-                                        <li><a href="ui-list-group.html">List Group</a></li>
-                                        <li><a href="ui-modals.html">Modals</a></li>
-                                        <li><a href="ui-offcanvas.html">Offcanvas</a></li>
-                                        <li><a href="ui-pagination.html">Pagination</a></li>
-                                        <li><a href="ui-placeholders.html">Placeholders</a></li>
-                                        <li><a href="ui-popovers.html">Popovers</a></li>
-                                        <li><a href="ui-progress.html">Progress</a></li>
-                                        <li><a href="ui-scrollspy.html">Scrollspy</a></li>
-                                        <li><a href="ui-spinner.html">Spinner</a></li>
-                                        <li><a href="ui-nav-tabs.html">Tabs</a></li>
-                                        <li><a href="ui-toasts.html">Toasts</a></li>
-                                        <li><a href="ui-tooltips.html">Tooltips</a></li>
-                                        <li><a href="ui-typography.html">Typography</a></li>
-                                        <li><a href="ui-utilities.html">Utilities</a></li>
+                                        <li><a href="#ui-accordion">Accordion</a></li>
+                                        <li><a href="#ui-alerts">Alerts</a></li>
+                                        <li><a href="#ui-avatar">Avatar</a></li>
+                                        <li><a href="#ui-badges">Badges</a></li>
+                                        <li><a href="#ui-breadcrumb">Breadcrumb</a></li>
+                                        <li><a href="#ui-buttons">Buttons</a></li>
+                                        <li><a href="#ui-buttons-group">Button Group</a></li>
+                                        <li><a href="#ui-cards">Card</a></li>
+                                        <li><a href="#ui-carousel">Carousel</a></li>
+                                        <li><a href="#ui-collapse">Collapse</a></li>
+                                        <li><a href="#ui-dropdowns">Dropdowns</a></li>
+                                        <li><a href="#ui-ratio">Ratio</a></li>
+                                        <li><a href="#ui-grid">Grid</a></li>
+                                        <li><a href="#ui-images">Images</a></li>
+                                        <li><a href="#ui-links">Links</a></li>
+                                        <li><a href="#ui-list-group">List Group</a></li>
+                                        <li><a href="#ui-modals">Modals</a></li>
+                                        <li><a href="#ui-offcanvas">Offcanvas</a></li>
+                                        <li><a href="#ui-pagination">Pagination</a></li>
+                                        <li><a href="#ui-placeholders">Placeholders</a></li>
+                                        <li><a href="#ui-popovers">Popovers</a></li>
+                                        <li><a href="#ui-progress">Progress</a></li>
+                                        <li><a href="#ui-scrollspy">Scrollspy</a></li>
+                                        <li><a href="#ui-spinner">Spinner</a></li>
+                                        <li><a href="#ui-nav-tabs">Tabs</a></li>
+                                        <li><a href="#ui-toasts">Toasts</a></li>
+                                        <li><a href="#ui-tooltips">Tooltips</a></li>
+                                        <li><a href="#ui-typography">Typography</a></li>
+                                        <li><a href="#ui-utilities">Utilities</a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">
+                                    <a href="#javascript:void(0);">
                                         <i class="ti ti-radar"></i><span>Advanced UI</span><span
                                             class="menu-arrow"></span>
                                     </a>
                                     <ul>
-                                        <li><a href="extended-dragula.html">Dragula</a></li>
-                                        <li><a href="ui-clipboard.html">Clipboard</a></li>
-                                        <li><a href="ui-rangeslider.html">Range Slider</a></li>
-                                        <li><a href="ui-sweetalerts.html">Sweet Alerts</a></li>
-                                        <li><a href="ui-lightbox.html">Lightbox</a></li>
-                                        <li><a href="ui-rating.html">Rating</a></li>
-                                        <li><a href="ui-scrollbar.html">Scrollbar</a></li>
+                                        <li><a href="#extended-dragula">Dragula</a></li>
+                                        <li><a href="#ui-clipboard">Clipboard</a></li>
+                                        <li><a href="#ui-rangeslider">Range Slider</a></li>
+                                        <li><a href="#ui-sweetalerts">Sweet Alerts</a></li>
+                                        <li><a href="#ui-lightbox">Lightbox</a></li>
+                                        <li><a href="#ui-rating">Rating</a></li>
+                                        <li><a href="#ui-scrollbar">Scrollbar</a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">
+                                    <a href="#javascript:void(0);">
                                         <i class="ti ti-forms"></i><span>Forms</span><span class="menu-arrow"></span>
                                     </a>
                                     <ul>
                                         <li class="submenu submenu-two">
-                                            <a href="javascript:void(0);">Form Elements<span
+                                            <a href="#javascript:void(0);">Form Elements<span
                                                     class="menu-arrow inside-submenu"></span></a>
                                             <ul>
-                                                <li><a href="form-basic-inputs.html">Basic Inputs</a></li>
-                                                <li><a href="form-checkbox-radios.html">Checkbox & Radios</a></li>
-                                                <li><a href="form-input-groups.html">Input Groups</a></li>
-                                                <li><a href="form-grid-gutters.html">Grid & Gutters</a></li>
-                                                <li><a href="form-mask.html">Input Masks</a></li>
-                                                <li><a href="form-fileupload.html">File Uploads</a></li>
+                                                <li><a href="#form-basic-inputs">Basic Inputs</a></li>
+                                                <li><a href="#form-checkbox-radios">Checkbox & Radios</a></li>
+                                                <li><a href="#form-input-groups">Input Groups</a></li>
+                                                <li><a href="#form-grid-gutters">Grid & Gutters</a></li>
+                                                <li><a href="#form-mask">Input Masks</a></li>
+                                                <li><a href="#form-fileupload">File Uploads</a></li>
                                             </ul>
                                         </li>
                                         <li class="submenu submenu-two">
-                                            <a href="javascript:void(0);">Layouts<span
+                                            <a href="#javascript:void(0);">Layouts<span
                                                     class="menu-arrow inside-submenu"></span></a>
                                             <ul>
-                                                <li><a href="form-horizontal.html">Horizontal Form</a></li>
-                                                <li><a href="form-vertical.html">Vertical Form</a></li>
-                                                <li><a href="form-floating-labels.html">Floating Labels</a></li>
+                                                <li><a href="#form-horizontal">Horizontal Form</a></li>
+                                                <li><a href="#form-vertical">Vertical Form</a></li>
+                                                <li><a href="#form-floating-labels">Floating Labels</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="form-validation.html">Form Validation</a></li>
-                                        <li><a href="form-select2.html">Select2</a></li>
-                                        <li><a href="form-wizard.html">Form Wizard</a></li>
-                                        <li><a href="form-pickers.html">Form Picker</a></li>
+                                        <li><a href="#form-validation">Form Validation</a></li>
+                                        <li><a href="#form-select2">Select2</a></li>
+                                        <li><a href="#form-wizard">Form Wizard</a></li>
+                                        <li><a href="#form-pickers">Form Picker</a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">
+                                    <a href="#javascript:void(0);">
                                         <i class="ti ti-table-row"></i><span>Tables</span><span
                                             class="menu-arrow"></span>
                                     </a>
                                     <ul>
-                                        <li><a href="tables-basic.html">Basic Tables </a></li>
-                                        <li><a href="data-tables.html">Data Table </a></li>
+                                        <li><a href="#tables-basic">Basic Tables </a></li>
+                                        <li><a href="#data-tables">Data Table </a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">
+                                    <a href="#javascript:void(0);">
                                         <i class="ti ti-chart-donut"></i>
                                         <span>Charts</span><span class="menu-arrow"></span>
                                     </a>
                                     <ul>
-                                        <li><a href="chart-apex.html">Apex Charts</a></li>
-                                        <li><a href="chart-c3.html">Chart C3</a></li>
-                                        <li><a href="chart-js.html">Chart Js</a></li>
-                                        <li><a href="chart-morris.html">Morris Charts</a></li>
-                                        <li><a href="chart-flot.html">Flot Charts</a></li>
-                                        <li><a href="chart-peity.html">Peity Charts</a></li>
+                                        <li><a href="#chart-apex">Apex Charts</a></li>
+                                        <li><a href="#chart-c3">Chart C3</a></li>
+                                        <li><a href="#chart-js">Chart Js</a></li>
+                                        <li><a href="#chart-morris">Morris Charts</a></li>
+                                        <li><a href="#chart-flot">Flot Charts</a></li>
+                                        <li><a href="#chart-peity">Peity Charts</a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">
+                                    <a href="#javascript:void(0);">
                                         <i class="ti ti-icons"></i>
                                         <span>Icons</span><span class="menu-arrow"></span>
                                     </a>
                                     <ul>
-                                        <li><a href="icon-fontawesome.html">Fontawesome Icons</a></li>
-                                        <li><a href="icon-tabler.html">Tabler Icons</a></li>
-                                        <li><a href="icon-bootstrap.html">Bootstrap Icons</a></li>
-                                        <li><a href="icon-remix.html">Remix Icons</a></li>
-                                        <li><a href="icon-feather.html">Feather Icons</a></li>
-                                        <li><a href="icon-ionic.html">Ionic Icons</a></li>
-                                        <li><a href="icon-material.html">Material Icons</a></li>
-                                        <li><a href="icon-pe7.html">Pe7 Icons</a></li>
-                                        <li><a href="icon-simpleline.html">Simpleline Icons</a></li>
-                                        <li><a href="icon-themify.html">Themify Icons</a></li>
-                                        <li><a href="icon-weather.html">Weather Icons</a></li>
-                                        <li><a href="icon-typicons.html">Typicons Icons</a></li>
-                                        <li><a href="icon-flag.html">Flag Icons</a></li>
+                                        <li><a href="#icon-fontawesome">Fontawesome Icons</a></li>
+                                        <li><a href="#icon-tabler">Tabler Icons</a></li>
+                                        <li><a href="#icon-bootstrap">Bootstrap Icons</a></li>
+                                        <li><a href="#icon-remix">Remix Icons</a></li>
+                                        <li><a href="#icon-feather">Feather Icons</a></li>
+                                        <li><a href="#icon-ionic">Ionic Icons</a></li>
+                                        <li><a href="#icon-material">Material Icons</a></li>
+                                        <li><a href="#icon-pe7">Pe7 Icons</a></li>
+                                        <li><a href="#icon-simpleline">Simpleline Icons</a></li>
+                                        <li><a href="#icon-themify">Themify Icons</a></li>
+                                        <li><a href="#icon-weather">Weather Icons</a></li>
+                                        <li><a href="#icon-typicons">Typicons Icons</a></li>
+                                        <li><a href="#icon-flag">Flag Icons</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -824,37 +650,37 @@
                         <li>
                             <ul>
                                 <li>
-                                    <a href="javascript:void(0);"><i
+                                    <a href="#javascript:void(0);"><i
                                             class="ti ti-file-dots"></i><span>Documentation</span></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);"><i
+                                    <a href="#javascript:void(0);"><i
                                             class="ti ti-status-change"></i><span>Changelog</span><span
                                             class="badge bg-danger ms-2 badge-md rounded-2 fs-12 fw-medium">v2.0</span></a>
                                 </li>
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">
+                                    <a href="#javascript:void(0);">
                                         <i class="ti ti-versions"></i><span>Multi Level</span>
                                         <span class="menu-arrow"></span>
                                     </a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Multilevel 1</a></li>
+                                        <li><a href="#javascript:void(0);">Multilevel 1</a></li>
                                         <li class="submenu submenu-two">
-                                            <a href="javascript:void(0);">Multilevel 2<span
+                                            <a href="#javascript:void(0);">Multilevel 2<span
                                                     class="menu-arrow inside-submenu"></span></a>
                                             <ul>
-                                                <li><a href="javascript:void(0);">Multilevel 2.1</a></li>
+                                                <li><a href="#javascript:void(0);">Multilevel 2.1</a></li>
                                                 <li class="submenu submenu-two submenu-three">
-                                                    <a href="javascript:void(0);">Multilevel 2.2<span
+                                                    <a href="#javascript:void(0);">Multilevel 2.2<span
                                                             class="menu-arrow inside-submenu inside-submenu-two"></span></a>
                                                     <ul>
-                                                        <li><a href="javascript:void(0);">Multilevel 2.2.1</a></li>
-                                                        <li><a href="javascript:void(0);">Multilevel 2.2.2</a></li>
+                                                        <li><a href="#javascript:void(0);">Multilevel 2.2.1</a></li>
+                                                        <li><a href="#javascript:void(0);">Multilevel 2.2.2</a></li>
                                                     </ul>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a href="javascript:void(0);">Multilevel 3</a></li>
+                                        <li><a href="#javascript:void(0);">Multilevel 3</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -863,19 +689,19 @@
                 </div>
                 <div class="sidebar-footer">
                     <div class="bg-light p-2 rounded d-flex align-items-center">
-                        <a href="#" class="avatar avatar-md me-2"><img
+                        <a href="##" class="avatar avatar-md me-2"><img
                                 src={{ asset('assets/img/users/avatar-2.jpg') }} alt=""></a>
                         <div>
-                            <h6 class="fs-14 fw-semibold mb-1"><a href="#">Joseph Smith</a></h6>
+                            <h6 class="fs-14 fw-semibold mb-1"><a href="##">Joseph Smith</a></h6>
                             <p class="fs-13 mb-0"><a
-                                    href="https://dleohr.dreamstechnologies.com/cdn-cgi/l/email-protection"
+                                    href="#https://dleohr.dreamstechnologies.com/cdn-cgi/l/email-protection"
                                     class="__cf_email__"
                                     data-cfemail="7d1c191014133d18051c100d1118531e1210">[email&#160;protected]</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="p-3 pt-0">
-                    <a href="login.html" class="btn btn-danger w-100"><i class="ti ti-logout-2 me-1"></i>Logout</a>
+                    <a href="#login" class="btn btn-danger w-100"><i class="ti ti-logout-2 me-1"></i>Logout</a>
                 </div>
             </div>
 
@@ -898,7 +724,7 @@
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb breadcrumb-divide p-0 mb-2">
                                             <li class="breadcrumb-item d-flex align-items-center fw-medium"><a
-                                                    href="index.html">Home</a></li>
+                                                    href="#{{ route('dashboard') }}">Home</a></li>
                                             <li class="breadcrumb-item active fw-medium" aria-current="page">Dashboard
                                             </li>
                                         </ol>
@@ -933,13 +759,13 @@
                                             </a>
                                         </div>
                                         <div class="col-lg-6">
-                                            <a href="companies.html"
+                                            <a href="#companies"
                                                 class="d-flex flex-column align-items-center p-3">
                                                 <i class="ti ti-building-community fs-20 mb-1"></i>Companies
                                             </a>
                                         </div>
                                         <div class="col-lg-6">
-                                            <a href="report-calendar.html"
+                                            <a href="##"
                                                 class="d-flex flex-column align-items-center p-3">
                                                 <i class="ti ti-calendar fs-20 mb-1"></i>Calendar
                                             </a>
@@ -950,28 +776,28 @@
                                             </a>
                                         </div>
                                         <div class="col-lg-6">
-                                            <a href="reviews.html" class="d-flex flex-column align-items-center p-3">
+                                            <a href="#reviews" class="d-flex flex-column align-items-center p-3">
                                                 <i class="ti ti-stars fs-20 mb-1"></i>Reviews
                                             </a>
                                         </div>
                                         <div class="col-lg-6">
-                                            <a href="team-report.html"
+                                            <a href="#team-report"
                                                 class="d-flex flex-column align-items-center p-3">
                                                 <i class="ti ti-report fs-20 mb-1"></i>Reports
                                             </a>
                                         </div>
                                         <div class="col-lg-6">
-                                            <a href="manage.html" class="d-flex flex-column align-items-center p-3">
+                                            <a href="#manage" class="d-flex flex-column align-items-center p-3">
                                                 <i class="ti ti-settings-2 fs-20 mb-1"></i>Manage
                                             </a>
                                         </div>
                                         <div class="col-lg-6">
-                                            <a href="settings.html" class="d-flex flex-column align-items-center p-3">
+                                            <a href="##" class="d-flex flex-column align-items-center p-3">
                                                 <i class="ti ti-user-edit fs-20 mb-1"></i>Profile
                                             </a>
                                         </div>
                                         <div class="col-lg-6">
-                                            <a href="settings.html" class="d-flex flex-column align-items-center p-3">
+                                            <a href="##" class="d-flex flex-column align-items-center p-3">
                                                 <i class="ti ti-settings fs-20 mb-1"></i>Settings
                                             </a>
                                         </div>
@@ -989,11 +815,11 @@
             <!-- Footer Start -->
             <div
                 class="footer d-flex align-items-center justify-content-between flex-column flex-sm-row row-gap-2 border-top py-2 px-3">
-                <p class="text-dark mb-0">2025 &copy; <a href="javascript:void(0);" class="link-primary">Dleo HR</a>,
+                <p class="text-dark mb-0">2025 &copy; <a href="#javascript:void(0);" class="link-primary">Awais</a>,
                     All Rights
                     Reserved</p>
-                <p class="text-dark mb-0">Design & Developed by <a href="https://dreamstechnologies.com/"
-                        target="_blank" class="link-primary">Dreams Technologies</a></p>
+                <p class="text-dark mb-0">Design & Developed by <a href="##"
+                        target="_blank" class="link-primary">Muhammad Awais</a></p>
             </div>
             <!-- Footer End -->
 
@@ -1029,7 +855,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <!-- Toastr CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+    <link rel="stylesheet" href="#https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
     
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
@@ -1060,6 +886,5 @@
 </body>
 
 
-<!-- Mirrored from dleohr.dreamstechnologies.com/html/template/employee-dashboard-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Jul 2025 08:12:49 GMT -->
 
 </html>

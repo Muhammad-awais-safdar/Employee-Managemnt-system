@@ -3,9 +3,6 @@
 @section('title', 'Admin Profile')
 
 @section('content')
-<div class="page-wrapper">
-    <!-- Page Content -->
-    <div class="content container-fluid">
 
         <!-- Page Header -->
         <div class="page-header">
@@ -330,7 +327,7 @@
                             <div class="mb-3">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="emailNotifications" 
-                                           name="email_notifications" {{ ($user->settings['email_notifications'] ?? true) ? 'checked' : '' }}>
+                                           name="email_settings" {{ ($user->settings['email_settings'] ?? true) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="emailNotifications">
                                         Email Notifications
                                     </label>
@@ -339,7 +336,7 @@
                             <div class="mb-3">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="smsNotifications" 
-                                           name="sms_notifications" {{ ($user->settings['sms_notifications'] ?? false) ? 'checked' : '' }}>
+                                           name="sms_settings" {{ ($user->settings['sms_settings'] ?? false) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="smsNotifications">
                                         SMS Notifications
                                     </label>
@@ -354,8 +351,6 @@
             </div>
         </div>
 
-    </div>
-</div>
 
 <style>
 .profile-card {
@@ -519,7 +514,7 @@ document.getElementById('profileImageInput').addEventListener('change', function
                 // Create image element if placeholder exists
                 const placeholder = document.querySelector('.profile-image-placeholder');
                 if (placeholder) {
-                    placeholder.outerHTML = `<img src="${e.target.result}" alt="Profile Image" class="profile-image rounded-circle" id="profileImagePreview">`;
+                    placeholder.outerHTML = `<img src={{ asset('${e.target.result}') }} alt="Profile Image" class="profile-image rounded-circle" id="profileImagePreview">`;
                 }
             }
         };
