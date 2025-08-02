@@ -328,8 +328,8 @@ class ProfileController extends Controller
         $request->validate([
             'timezone' => 'nullable|string|max:50',
             'language' => 'nullable|string|max:10',
-            'email_notifications' => 'boolean',
-            'sms_notifications' => 'boolean',
+            'email_settings' => 'boolean',
+            'sms_settings' => 'boolean',
             'theme_preference' => 'nullable|in:light,dark,system'
         ]);
 
@@ -340,8 +340,8 @@ class ProfileController extends Controller
             
             $settings['timezone'] = $request->timezone ?? 'UTC';
             $settings['language'] = $request->language ?? 'en';
-            $settings['email_notifications'] = $request->boolean('email_notifications', true);
-            $settings['sms_notifications'] = $request->boolean('sms_notifications', false);
+            $settings['email_settings'] = $request->boolean('email_settings', true);
+            $settings['sms_settings'] = $request->boolean('sms_settings', false);
             $settings['theme_preference'] = $request->theme_preference ?? 'system';
 
             $user->settings = $settings;

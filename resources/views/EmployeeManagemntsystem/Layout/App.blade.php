@@ -3,7 +3,6 @@
 <html lang="en">
 
 
-<!-- Mirrored from dleohr.dreamstechnologies.com/html/template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Jul 2025 08:05:57 GMT -->
 <head>
 
 	<!-- Meta Tags -->
@@ -13,14 +12,8 @@
 	<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
     <title> @section('title') | Dleohr</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="author" content="Dreams Technologies">
+	<meta name="author" content="Muhammad Awais">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	
-    <!-- Favicon -->
-    <link rel="shortcut icon" href={{ asset('assets/img/favicon.png') }}>
-
-    <!-- Apple Icon -->
-    <link rel="apple-touch-icon" href={{ asset('assets/img/apple-icon.png') }}>
 
     <!-- Theme Config Js -->
     <script src={{ asset('assets/js/theme-script.js') }} ></script>
@@ -43,7 +36,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href={{ asset('assets/css/style.css') }} id="app-style">
+    <link rel="stylesheet" href={{ asset('assets/css/style.css') }}>
 
 </head>
 
@@ -58,7 +51,7 @@
                 <div class="d-flex align-items-center gap-2">
 
                     <!-- Logo -->
-                    <a href={{ asset('index.html') }} class="logo">
+                    <a href="@php echo route(Auth::user()->getRoleNames()->first() . '.dashboard'); @endphp" class="logo">
 
                         @php
                             $user = Auth::user();
@@ -175,17 +168,15 @@
                     <!-- Calendar -->
                     <div class="header-item">
                         <div class="me-2">
-                            <a href={{ asset('report-calendar.html') }} class="btn topbar-link"><i class="ti ti-calendar-star fs-16"></i></a>
+                            <a href="#" class="btn topbar-link"><i class="ti ti-calendar-star fs-16"></i></a>
                         </div>
                     </div>
 					
-					<!-- Notification Dropdown -->
-                    @include('Component.NotificationDropdown')
 
                     <!-- Settings -->
                     <div class="header-item">
                         <div>
-                            <a href={{ asset('settings.html') }} class="btn topbar-link"><i class="ti ti-settings fs-16"></i></a>
+                            <a href="#" class="btn topbar-link"><i class="ti ti-settings fs-16"></i></a>
                         </div>
                     </div> 
 						
@@ -228,8 +219,8 @@
 
             <!-- Footer Start -->
             <div class="footer d-flex align-items-center justify-content-between flex-column flex-sm-row row-gap-2 border-top py-2 px-3">
-                <p class="text-dark mb-0">2025 &copy; <a href="javascript:void(0);" class="link-primary">Dleo HR</a>, All Rights Reserved</p>
-                <p class="text-dark mb-0">Design & Developed by <a href="https://dreamstechnologies.com/" target="_blank" class="link-primary">Dreams Technologies</a></p>
+                <p class="text-dark mb-0">2025 &copy; <a href="javascript:void(0);" class="link-primary">Awais</a>, All Rights Reserved</p>
+                <p class="text-dark mb-0">Design & Developed by <a href="#" target="_blank" class="link-primary">Muhammad Awais</a></p>
             </div>
             <!-- Footer End -->
 
@@ -251,7 +242,7 @@
                         <p class="mb-3">Are you sure want to delete todo?</p>
                         <div class="d-flex justify-content-center">
                             <a href="javascript:void(0);" class="btn btn-outline-white w-100 me-2" data-bs-dismiss="modal">Cancel</a>
-                            <a href={{ asset('index.html') }} class="btn btn-danger w-100">Yes, Delete</a>
+                            <a href="#" class="btn btn-danger w-100">Yes, Delete</a>
                         </div>
                     </div>
                 </div>

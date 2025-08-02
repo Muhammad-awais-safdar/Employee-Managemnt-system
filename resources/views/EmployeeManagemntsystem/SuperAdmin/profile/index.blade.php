@@ -3,9 +3,9 @@
 @section('title', 'SuperAdmin Profile')
 
 @section('content')
-<div class="page-wrapper">
+{{-- <div class="page-wrapper">
     <!-- Page Content -->
-    <div class="content container-fluid">
+    <div class="content container-fluid"> --}}
 
         <!-- Page Header -->
         <div class="page-header">
@@ -264,7 +264,7 @@
                             <div class="mb-3">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="emailNotifications" 
-                                           name="email_notifications" {{ ($user->settings['email_notifications'] ?? true) ? 'checked' : '' }}>
+                                           name="email_settings" {{ ($user->settings['email_settings'] ?? true) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="emailNotifications">
                                         System Email Notifications
                                     </label>
@@ -292,7 +292,7 @@
                             <a href="{{ route('superAdmin.users.index') }}" class="btn btn-outline-success">
                                 <i class="ti ti-users-group me-2"></i>Manage Users
                             </a>
-                            <a href="{{ route('superAdmin.notifications.index') }}" class="btn btn-outline-warning">
+                            <a href="#" class="btn btn-outline-warning">
                                 <i class="ti ti-bell me-2"></i>System Notifications
                             </a>
                             <button class="btn btn-outline-info" onclick="viewSystemLogs()">
@@ -380,8 +380,8 @@
             </div>
         </div>
 
-    </div>
-</div>
+    {{-- </div>
+</div> --}}
 
 <style>
 .superadmin-card {
@@ -581,7 +581,7 @@ document.getElementById('profileImageInput').addEventListener('change', function
                 // Create image element if placeholder exists
                 const placeholder = document.querySelector('.profile-image-placeholder');
                 if (placeholder) {
-                    placeholder.outerHTML = `<img src="${e.target.result}" alt="Profile Image" class="profile-image rounded-circle" id="profileImagePreview">`;
+                    placeholder.outerHTML = `<img src={{ asset('${e.target.result}') }} alt="Profile Image" class="profile-image rounded-circle" id="profileImagePreview">`;
                 }
             }
         };

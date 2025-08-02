@@ -13,7 +13,6 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AdminSalaryController;
 use App\Http\Controllers\HRDashboardController;
 use App\Http\Controllers\HRIncrementController;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\WorkingHoursController;
 use App\Http\Controllers\SalaryHistoryController;
 use App\Http\Controllers\AdminDashboardController;
@@ -365,26 +364,6 @@ Route::middleware(['role:Employee'])->prefix('employee')->as('Employee.')->group
     });
 });
 
-// Notification routes
-Route::middleware(['auth'])->group(function () {
-    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-    Route::post('/notifications/{notification}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
-    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
-    Route::delete('/notifications/clear-all', [NotificationController::class, 'clearAll'])->name('notifications.clear-all');
-    Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
-});
-
-// Role-based notification pages
-Route::middleware(['auth'])->group(function () {
-    // Admin notifications
-    Route::get('/admin/notifications', [NotificationController::class, 'adminIndex'])->name('Admin.notifications.index');
-    
-    // HR notifications
-    Route::get('/hr/notifications', [NotificationController::class, 'hrIndex'])->name('HR.notifications.index');
-    
-    // Employee notifications
-    Route::get('/employee/notifications', [NotificationController::class, 'employeeIndex'])->name('Employee.notifications.index');
-});
 
 // Profile routes
 Route::middleware(['auth'])->group(function () {

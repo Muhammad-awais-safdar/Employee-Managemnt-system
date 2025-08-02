@@ -286,8 +286,8 @@
                                     </div>
                                 </div>
                                 <div class="index-profile-links">
-                                    <a href={{ asset('index.html') }} class="dashboard-toggle active">Admin Dashboard</a>
-                                    <a href={{ asset('employee-dashboard.html') }} class="dashboard-toggle">Employee Dashboard</a>
+                                    <a href="{{ route('Admin.dashboard') }}" class="dashboard-toggle active">Admin Dashboard</a>
+                                    <a href="{{ route('Employee.dashboard') }}" class="dashboard-toggle">Employee Dashboard</a>
                                 </div>
                             </div>
                         </div>
@@ -430,7 +430,7 @@
                         <div class="card shadow flex-fill">
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h6 class="fw-bold mb-0">Team Leads</h6>
-                                <a href={{ asset('manage-team-lead.html') }} class="btn btn-sm btn-outline-white">Manage Team</a>
+                                <a href="#" class="btn btn-sm btn-outline-white">Manage Team</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -473,11 +473,11 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <a href={{ asset('employee-details.html') }} class="avatar avatar-sm avatar-rounded">
+                                                        <a href="#" class="avatar avatar-sm avatar-rounded">
                                                             <img src={{ asset('assets/img/employees/employee-06.jpg') }} alt="img">
                                                         </a>
                                                         <div class="ms-2">
-                                                            <h6 class="fs-14 mb-0"><a href={{ asset('employee-details.html') }}>Sarah Michelle</a></h6>
+                                                            <h6 class="fs-14 mb-0"><a href="#">Sarah Michelle</a></h6>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -487,11 +487,11 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <a href={{ asset('employee-details.html') }} class="avatar avatar-sm avatar-rounded">
+                                                        <a href="#" class="avatar avatar-sm avatar-rounded">
                                                             <img src={{ asset('assets/img/managers/manager-07.jpg') }} alt="img">
                                                         </a>
                                                         <div class="ms-2">
-                                                            <h6 class="fs-14 mb-0"><a href={{ asset('employee-details.html') }}>Daniel Patrick</a></h6>
+                                                            <h6 class="fs-14 mb-0"><a href="#">Daniel Patrick</a></h6>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -515,11 +515,11 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <a href={{ asset('employee-details.html') }} class="avatar avatar-sm avatar-rounded">
+                                                        <a href="#" class="avatar avatar-sm avatar-rounded">
                                                             <img src={{ asset('assets/img/managers/manager-05.jpg') }} alt="img">
                                                         </a>
                                                         <div class="ms-2">
-                                                            <h6 class="fs-14 mb-0"><a href={{ asset('employee-details.html') }}>Ryan Christopher</a></h6>
+                                                            <h6 class="fs-14 mb-0"><a href="#">Ryan Christopher</a></h6>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -537,7 +537,7 @@
                         <div class="card shadow flex-fill">
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h6 class="fw-bold mb-0">Upcoming Leaves</h6>
-                                <a href={{ asset('leaves.html') }} class="btn btn-sm btn-outline-white">Manage Leave</a>
+                                <a href="{{ route('Admin.leave.index') }}" class="btn btn-sm btn-outline-white">Manage Leave</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -553,11 +553,11 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <a href={{ asset('employee-details.html') }} class="avatar avatar-sm avatar-rounded">
+                                                        <a href="#" class="avatar avatar-sm avatar-rounded">
                                                             <img src={{ asset('assets/img/employees/employee-09.jpg') }} alt="img">
                                                         </a>
                                                         <div class="ms-2">
-                                                            <h6 class="fs-14 mb-0"><a href={{ asset('employee-details.html') }}>Daniel Martinz</a></h6>
+                                                            <h6 class="fs-14 mb-0"><a href="#">Daniel Martinz</a></h6>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -567,11 +567,11 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <a href={{ asset('employee-details.html') }} class="avatar avatar-sm avatar-rounded">
+                                                        <a href="#" class="avatar avatar-sm avatar-rounded">
                                                             <img src={{ asset('assets/img/employees/employee-04.jpg') }} alt="img">
                                                         </a>
                                                         <div class="ms-2">
-                                                            <h6 class="fs-14 mb-0"><a href={{ asset('employee-details.html') }}>Emily Clark</a></h6>
+                                                            <h6 class="fs-14 mb-0"><a href="#">Emily Clark</a></h6>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -581,11 +581,11 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <a href={{ asset('employee-details.html') }} class="avatar avatar-sm avatar-rounded">
+                                                        <a href="#" class="avatar avatar-sm avatar-rounded">
                                                             <img src={{ asset('assets/img/managers/manager-03.jpg') }} alt="img">
                                                         </a>
                                                         <div class="ms-2">
-                                                            <h6 class="fs-14 mb-0"><a href={{ asset('employee-details.html') }}>Daniel Patrick</a></h6>
+                                                            <h6 class="fs-14 mb-0"><a href="#">Daniel Patrick</a></h6>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -609,11 +609,11 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <a href={{ asset('employee-details.html') }} class="avatar avatar-sm avatar-rounded">
+                                                        <a href="#" class="avatar avatar-sm avatar-rounded">
                                                             <img src={{ asset('assets/img/managers/manager-09.jpg') }} alt="img">
                                                         </a>
                                                         <div class="ms-2">
-                                                            <h6 class="fs-14 mb-0"><a href={{ asset('employee-details.html') }}>Madison Andrew</a></h6>
+                                                            <h6 class="fs-14 mb-0"><a href="#">Madison Andrew</a></h6>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -705,7 +705,7 @@
                         <div class="card shadow flex-fill">
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h6 class="fw-bold mb-0">To Do List</h6>
-                                <a href={{ asset('todo-list.html') }} class="btn btn-sm btn-outline-white">View All</a>
+                                <a href="#" class="btn btn-sm btn-outline-white">View All</a>
                             </div>
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">

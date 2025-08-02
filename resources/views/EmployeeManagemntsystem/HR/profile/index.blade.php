@@ -335,7 +335,7 @@
                             <div class="mb-3">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="emailNotifications" 
-                                           name="email_notifications" {{ ($user->settings['email_notifications'] ?? true) ? 'checked' : '' }}>
+                                           name="email_settings" {{ ($user->settings['email_settings'] ?? true) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="emailNotifications">
                                         Email Notifications
                                     </label>
@@ -344,7 +344,7 @@
                             <div class="mb-3">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="smsNotifications" 
-                                           name="sms_notifications" {{ ($user->settings['sms_notifications'] ?? false) ? 'checked' : '' }}>
+                                           name="sms_settings" {{ ($user->settings['sms_settings'] ?? false) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="smsNotifications">
                                         SMS Notifications
                                     </label>
@@ -375,7 +375,7 @@
                             <a href="{{ route('HR.attendance.index') }}" class="btn btn-outline-info">
                                 <i class="ti ti-clock me-2"></i>View Attendance Reports
                             </a>
-                            <a href="{{ route('HR.notifications.index') }}" class="btn btn-outline-warning">
+                            <a href="#" class="btn btn-outline-warning">
                                 <i class="ti ti-bell me-2"></i>View Notifications
                             </a>
                         </div>
