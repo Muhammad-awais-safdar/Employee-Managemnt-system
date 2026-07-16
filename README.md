@@ -1,61 +1,183 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Employee Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel 12-based employee management platform built for multi-role HR, finance, and company administration. The app provides attendance, leave, payroll, expense, tax, and user management for SuperAdmin, Admin, HR, Finance, TeamLead, and Employee roles.
 
-## About Laravel
+## Product Summary
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project is a complete employee management dashboard with role-based access and company-level scoping.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Key capabilities:
+- Multi-company admin hierarchy with SuperAdmin and Company Admin.
+- Department and user management with role-based permissions.
+- Attendance tracking with check-in, check-out, break tracking, reporting, and export.
+- Leave request workflow with approval, balance tracking, calendar view, and bulk actions.
+- Payroll and salary management with employee salary updates, payroll processing, and export.
+- Expense approval and reimbursement workflows.
+- Tax configuration including tax rates, brackets, deductions, and employee tax info.
+- Working hours settings per company.
+- Salary increment request submission and review.
+- Profile management and role-specific dashboards.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+### Authentication & roles
+- Login/logout flow using custom `AuthController`
+- Role-based middleware for `superAdmin`, `Admin`, `HR`, `Finance`, `TeamLead`, and `Employee`
+- Access control powered by `spatie/laravel-permission`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Administration
+- SuperAdmin: company management, global user management, attendance reports, working hours, leave types
+- Admin: company settings, department management, user management, attendance, leave approvals, working hours, leave types
+- HR: team user management, attendance monitoring, leave review, leave calendar, increment requests
+- Finance: salary management, payroll processing, expense approval, financial reports, tax settings
+- TeamLead: limited team user viewing and dashboard access
+- Employee: personal dashboard, attendance actions, leave requests, leave calendar, salary history
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Attendance
+- Check-in and check-out actions
+- Break start/end
+- Attendance statistics and export
+- Employee attendance lists and reports
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Leave Management
+- Request leave creation, editing, and cancellation
+- Leave balance display and calendar view
+- Manager/HR approval, rejection, bulk approval, and bulk reject
+- Leave type management with active/inactive toggles
+- Leave export and employee-specific reports
 
-## Laravel Sponsors
+### Finance & Payroll
+- Salary tables and updates
+- Payroll processing and export
+- Expense approval, rejection, reimbursement, and export
+- Salary history for employees and company-wide export
+- Salary increment requests and review workflows
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Tax & Payroll Configuration
+- Tax rates, brackets, and deductions management
+- Employee tax information tracking
+- Tax calculation and default setup
 
-### Premium Partners
+### Platform Utilities
+- Profile editing and password update
+- Company-scoped permissions and security filtering
+- Dashboard pages for each role
+- Responsive admin UI with sidebar, topbar, dark mode, and search
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Tech Stack
 
-## Contributing
+- PHP 8.2
+- Laravel 12
+- MySQL 8.1
+- Redis
+- Docker Compose
+- Vite
+- Tailwind CSS 4
+- Bootstrap 5
+- Laravel Vite Plugin
+- Axios
+- FontAwesome icons
+- Tabler icons
+- C3 charts
+- Spatie Laravel Permission
+- Pest for PHP testing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## UI & Theme
 
-## Code of Conduct
+The frontend uses a Bootstrap-based admin dashboard theme with these design tokens:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Primary brand: `#3E007C` (dark purple)
+- Accent / action: `#FAB33D` (gold)
+- Neutral backgrounds: `#FFFFFF`, `#F8F9FA`, `#E8E8E9`
+- Dark mode base: `#06081F`, `#03041A`
+- Sidebar hover / active: `rgba(250, 179, 61, 0.1)`, `#2a2c33`
+- Text: `#303335`, `#828997`, `#D9DCFF`
 
-## Security Vulnerabilities
+The layout includes:
+- Topbar with search, language switcher, fullscreen toggle, dark mode button, and settings
+- Collapsible sidebar navigation
+- Role-specific dashboard pages
+- Responsive card/grid styling and admin tables
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Docker Development Setup
 
-## License
+### Prerequisites
+- Docker
+- Docker Compose
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Start locally
+
+1. Copy environment variables:
+   ```bash
+   cp .env.docker .env
+   ```
+2. Build and start containers:
+   ```bash
+   docker compose up -d --build
+   ```
+3. Install dependencies:
+   ```bash
+   docker compose exec laravel.test composer install
+   docker compose exec laravel.test npm install
+   ```
+4. Build frontend assets:
+   ```bash
+   docker compose exec laravel.test npm run build
+   ```
+5. Generate the application key and run migrations:
+   ```bash
+   docker compose exec laravel.test php artisan key:generate
+   docker compose exec laravel.test php artisan migrate --force
+   ```
+
+### Access the app
+- Application: `http://localhost:8080`
+- Vite dev server: `http://localhost:5173`
+
+### Development workflow
+- Normal code edits are reflected immediately because the project directory is mounted into the container.
+- Start existing containers without rebuilding:
+  ```bash
+  docker compose up -d
+  ```
+- When you change PHP or Blade views, refresh the browser.
+- When you change composer or npm dependencies:
+  ```bash
+  docker compose exec laravel.test composer install
+  docker compose exec laravel.test npm install
+  ```
+- Rebuild only when Docker configuration changes:
+  - `Dockerfile`
+  - `docker-compose.yml`
+  - `.dockerignore`
+
+### Docker permissions
+If Docker requires `sudo`, add your user to the `docker` group and restart your session:
+```bash
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+## Testing
+
+Run tests locally inside the container:
+```bash
+docker compose exec laravel.test php artisan test
+```
+
+## Project Structure
+
+- `app/` — application controllers, models, policies, services
+- `config/` — Laravel config files
+- `database/` — migrations, factories, seeders
+- `resources/views/` — Blade views and layouts
+- `resources/css/` — Tailwind + Vite CSS entrypoint
+- `routes/web.php` — all app routes and role-based route groups
+- `Dockerfile` — PHP Apache application image
+- `docker-compose.yml` — app, MySQL, Redis stack
+
+## Notes
+
+- The app uses custom role-based route groups for SuperAdmin, Admin, HR, Finance, TeamLead, and Employee.
+- Session and cache are configured to use database storage in `.env.docker`.
+- The UI is based on a Bootstrap admin template with Tailwind support via Vite.
